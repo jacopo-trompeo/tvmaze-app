@@ -1,27 +1,11 @@
-import { FormEvent, useState } from "react";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleLogin = async (e: FormEvent) => {
-		e.preventDefault();
-		try {
-			const credentials = await signInWithEmailAndPassword(
-				auth,
-				email,
-				password
-			);
-			console.log(credentials);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	return (
-		<form className="flex flex-col p-5 gap-5" onSubmit={handleLogin}>
+		<form className="flex flex-col p-5 gap-5">
 			<label>
 				Email
 				<input

@@ -1,5 +1,14 @@
+import { getAuth, signOut } from "firebase/auth";
+
 const SearchPage = () => {
-	return <div>SearchPage</div>;
+	const handleLogOut = () => {
+		const auth = getAuth();
+		signOut(auth).catch((error) => {
+			console.log(error);
+		});
+	};
+
+	return <button onClick={handleLogOut}>Log out</button>;
 };
 
 export default SearchPage;
