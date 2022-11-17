@@ -3,6 +3,7 @@ import {
 	getAuth,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	onAuthStateChanged,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -44,3 +45,12 @@ export const signInUser = async (email: string, password: string) => {
 		return error;
 	}
 };
+
+onAuthStateChanged(auth, (user) => {
+	if (user) {
+		const email = user.email;
+		console.log(email);
+	} else {
+		console.log("No user is signed in.");
+	}
+});

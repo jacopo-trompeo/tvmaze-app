@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { createUser } from "../firebase";
+import { createUser, signInUser } from "../firebase";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
@@ -7,14 +7,14 @@ const LoginPage = () => {
 
 	const handleLogin = async (e: FormEvent) => {
 		e.preventDefault();
-		const userCredential = await createUser(email, password);
-		console.log(userCredential);
+		const credentials = await signInUser(email, password);
+		console.log(credentials);
 	};
 
 	return (
 		<form className="flex flex-col p-5 gap-5" onSubmit={handleLogin}>
 			<label>
-				Email:
+				Email
 				<input
 					type="text"
 					name="email"
