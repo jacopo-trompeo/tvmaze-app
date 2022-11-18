@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const SearchPage = () => {
-	const { user, signOutUser } = useAuth();
+	const { user, logOut } = useAuth();
 	const navigate = useNavigate();
 
 	const handleSignOut = async () => {
 		try {
-			await signOutUser();
+			await logOut();
 			navigate("/login");
 		} catch (error) {
 			console.log(error);

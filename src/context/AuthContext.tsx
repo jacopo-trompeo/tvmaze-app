@@ -15,35 +15,35 @@ interface PropTypes {
 
 interface ContextTypes {
 	user: User | undefined | null;
-	signInUser: (email: string, password: string) => Promise<UserCredential>;
 	createUser: (email: string, password: string) => Promise<UserCredential>;
-	signOutUser: () => Promise<void>;
+	logIn: (email: string, password: string) => Promise<UserCredential>;
+	logOut: () => Promise<void>;
 }
 
 const UserContext = createContext<ContextTypes>({
 	user: undefined,
-	signInUser: async () => {
-		return {} as UserCredential;
-	},
 	createUser: async () => {
 		return {} as UserCredential;
 	},
-	signOutUser: async () => {},
+	logIn: async () => {
+		return {} as UserCredential;
+	},
+	logOut: async () => {},
 });
 
 export const AuthContextProvider = ({ children }: PropTypes) => {
 	const [user, setUser] = useState<User | undefined | null>(undefined);
 
-	const signInUser = (email: string, password: string) => {
-		setUser(undefined);
-		return signInWithEmailAndPassword(auth, email, password);
-	};
-
 	const createUser = (email: string, password: string) => {
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
 
-	const signOutUser = () => {
+	const logIn = (email: string, password: string) => {
+		setUser(undefined);
+		return signInWithEmailAndPassword(auth, email, password);
+	};
+
+	const logOut = () => {
 		return signOut(auth);
 	};
 
@@ -54,9 +54,7 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	}, []);
 
 	return (
-		<UserContext.Provider
-			value={{ user, signInUser, createUser, signOutUser }}
-		>
+		<UserContext.Provider value={{ user, createUser, logIn, logOut }}>
 			{children}
 		</UserContext.Provider>
 	);
