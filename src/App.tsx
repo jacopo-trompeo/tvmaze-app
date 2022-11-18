@@ -7,15 +7,31 @@ import { config } from "./config/config";
 
 initializeApp(config.firebaseConfig);
 
+/*const renderPage = (
+	component: any,
+	Wrapper: any,
+	options?: { auth: boolean }
+) => {
+	if (!!Wrapper) {
+		return <Wrapper {...options}>{component}</Wrapper>;
+	} else {
+		return component;
+	}
+};*/
+
 const router = createBrowserRouter([
 	{
 		path: "/login",
-		element: <LoginPage />,
+		element: (
+			<AuthProvider options={{ auth: true }}>
+				<LoginPage />
+			</AuthProvider>
+		),
 	},
 	{
 		path: "/",
 		element: (
-			<AuthProvider>
+			<AuthProvider options={{ auth: false }}>
 				<SearchPage />
 			</AuthProvider>
 		),

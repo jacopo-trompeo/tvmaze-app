@@ -4,23 +4,34 @@ import { useNavigate } from "react-router-dom";
 
 interface PropTypes {
 	children: React.ReactNode;
+	options?: { auth: boolean };
 }
 
 const AuthProvider = (props: PropTypes) => {
-	const { children } = props;
+	const { children, options } = props;
 	const auth = getAuth();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				setLoading(false);
-			} else {
-				navigate("/login");
-			}
-		});
+		checkAuthentication();
+		return () => checkAuthentication();
 	}, [auth]);
+
+	const checkAuthentication = onAuthStateChanged(auth, (user) => {
+		console.log(!!user, options?.auth);
+		if (!user && !options?.auth) {
+			navigate("/login");
+		} else if (!user && options?.auth) {
+			setLoading(false);
+		} else if (user && !options?.auth) {
+			setLoading(false);
+		} else {
+			navigate("/");
+		}
+
+		setLoading(false);
+	});
 
 	if (loading) {
 		return <p>Loading...</p>;

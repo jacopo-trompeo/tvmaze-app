@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
+
+	const handleLogin = (e: FormEvent) => {
+		e.preventDefault();
+		const auth = getAuth();
+		signInWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				navigate("/");
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 
 	return (
-		<form className="flex flex-col p-5 gap-5">
+		<form className="flex flex-col p-5 gap-5" onSubmit={handleLogin}>
 			<label>
 				Email
 				<input
