@@ -14,14 +14,14 @@ interface PropTypes {
 }
 
 interface ContextTypes {
-	user: User | null;
+	user: User | undefined | null;
 	signInUser: (email: string, password: string) => Promise<UserCredential>;
 	createUser: (email: string, password: string) => Promise<UserCredential>;
 	signOutUser: () => Promise<void>;
 }
 
 const UserContext = createContext<ContextTypes>({
-	user: null,
+	user: undefined,
 	signInUser: async () => {
 		return {} as UserCredential;
 	},
@@ -32,7 +32,7 @@ const UserContext = createContext<ContextTypes>({
 });
 
 export const AuthContextProvider = ({ children }: PropTypes) => {
-	const [user, setUser] = useState<User | null>(null);
+	const [user, setUser] = useState<User | undefined | null>(undefined);
 
 	const signInUser = (email: string, password: string) => {
 		return signInWithEmailAndPassword(auth, email, password);
@@ -47,11 +47,10 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	};
 
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, user => {
+		onAuthStateChanged(auth, user => {
 			setUser(user);
+			console.log(user);
 		});
-
-		return () => unsubscribe();
 	}, []);
 
 	return (
