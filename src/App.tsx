@@ -7,7 +7,11 @@ import ProtectedRoute from "./context/ProtectedRoute";
 const router = createBrowserRouter([
 	{
 		path: "/login",
-		element: <LoginPage />,
+		element: (
+			<ProtectedRoute isAuth={true}>
+				<LoginPage />
+			</ProtectedRoute>
+		),
 	},
 	{
 		path: "/",

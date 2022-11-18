@@ -4,22 +4,27 @@ import { useAuth } from "./AuthContext";
 
 interface PropTypes {
 	children: JSX.Element;
+	isAuth?: boolean;
 }
 
-const ProtectedRoute = ({ children }: PropTypes) => {
+const ProtectedRoute = ({ children, isAuth }: PropTypes) => {
 	const [loading, setLoading] = useState(true);
 	const { user } = useAuth();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (user === null) {
+		if (user && isAuth) {
+			navigate("/");
+		}
+
+		if (user === null && !isAuth) {
 			navigate("/login");
 		}
 
-		if (user) {
+		if ((user && !isAuth) || (user === null && isAuth)) {
 			setLoading(false);
 		}
-	}, [user]);
+	}, [user, isAuth]);
 
 	if (loading) {
 		return <h1>Loading...</h1>;
