@@ -35,6 +35,7 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	const [user, setUser] = useState<User | undefined | null>(undefined);
 
 	const signInUser = (email: string, password: string) => {
+		setUser(undefined);
 		return signInWithEmailAndPassword(auth, email, password);
 	};
 
@@ -49,7 +50,6 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	useEffect(() => {
 		onAuthStateChanged(auth, user => {
 			setUser(user);
-			console.log(user);
 		});
 	}, []);
 
