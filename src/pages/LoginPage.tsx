@@ -20,51 +20,61 @@ const LoginPage = () => {
 	};
 
 	return (
-		<main className="max-w-[90%] md:max-w-[60%] xl:max-w-[35%] mx-auto pt-48">
-			<form
-				className="flex flex-col items-center bg-gray-100 py-20 rounded-lg shadow-lg shadow-stone-400"
-				onSubmit={handleSubmit}
-			>
-				<h1 className="mb-8 text-center font-bold text-2xl">
-					Login to TVMaze App
-				</h1>
-				<div className="flex flex-col py-2 w-4/5">
-					<label
-						className="mb-1 font-semibold text-stone-600 text-sm"
-						htmlFor="email"
-					>
-						Email
-					</label>
-					<input
-						type="email"
-						id="email"
-						value={email}
-						onChange={e => setEmail(e.target.value)}
-						className="py-1 border border-stone-300 rounded-md"
-					/>
-				</div>
-				<div className="flex flex-col py-2 w-4/5">
-					<label
-						className="mb-1 font-semibold text-stone-600 text-sm"
-						htmlFor="password"
-					>
-						Password
-					</label>
-					<input
-						type="password"
-						id="password"
-						value={password}
-						onChange={e => setPassword(e.target.value)}
-						className=" py-1 border border-stone-300 rounded-md"
-					/>
-				</div>
-				<button
-					className="bg-blue-500 w-4/5 mt-5 py-2 text-white rounded-md cursor-pointer hover:bg-blue-600"
-					type="submit"
+		<main className="flex flex-col justify-center items-center h-screen bg-gray-100 px-10">
+			<h2 className="text-center text-4xl font-extrabold text-gray-900">
+				Sign in to TVMaze App
+			</h2>
+			<p className="mt-4 text-center text-sm text-gray-600">
+				Don't have an account?{" "}
+				<a
+					href="#"
+					className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:border-b focus:border-indigo-500"
 				>
-					Login
-				</button>
-			</form>
+					Sign up here.
+				</a>
+			</p>
+
+			<div className="mt-8 w-full md:max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
+				<form onSubmit={handleSubmit}>
+					<div className="flex flex-col py-2">
+						<label
+							htmlFor="email"
+							className="mb-1 text-sm font-medium text-gray-700"
+						>
+							Email
+						</label>
+						<input
+							type="email"
+							id="email"
+							value={email}
+							onChange={e => setEmail(e.target.value)}
+							className="border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+						/>
+					</div>
+					<div className="flex flex-col py-2">
+						<label
+							htmlFor="password"
+							className="mb-1 text-sm font-medium text-gray-700 "
+						>
+							Password
+						</label>
+						<input
+							type="password"
+							id="password"
+							value={password}
+							onChange={e => setPassword(e.target.value)}
+							className="border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+						/>
+					</div>
+
+					<button
+						type="submit"
+						className="mt-5 w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+					>
+						Log In
+					</button>
+				</form>
+			</div>
 		</main>
 	);
 };
