@@ -1,51 +1,54 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
+	const { signInUser } = useAuth();
 
-	const handleLogin = (e: FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const auth = getAuth();
-		signInWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-				navigate("/");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+
+		try {
+			await signInUser(email, password);
+			navigate("/");
+		} catch (err: any) {
+			console.log(err);
+		}
 	};
 
 	return (
-		<form className="flex flex-col p-5 gap-5" onSubmit={handleLogin}>
-			<label>
-				Email
+		<form className="m-10" onSubmit={handleSubmit}>
+			<div className="flex flex-col py-2">
+				<label htmlFor="email">Email</label>
 				<input
-					type="text"
-					name="email"
-					className="border border-stone-900"
+					onChange={e => setEmail(e.target.value)}
 					value={email}
-					onChange={(e) => setEmail(e.target.value)}
+					className="border-2 border-stone-500 p-2 rounded"
+					type="email"
+					name="email"
+					id="email"
 				/>
-			</label>
-			<label>
-				Password:
+			</div>
+			<div className="flex flex-col py-2">
+				<label htmlFor="password">Password</label>
 				<input
+					onChange={e => setPassword(e.target.value)}
+					value={password}
+					className="border-2 border-stone-500 p-2 rounded"
 					type="password"
 					name="password"
-					className="border border-stone-900"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
+					id="password"
 				/>
-			</label>
-			<input
+			</div>
+			<button
+				className="bg-blue-600 cursor-pointer hover:bg-blue-700 w-full p-3 text-white font-bold rounded"
 				type="submit"
-				value="Submit"
-				className="cursor-pointer bg-stone-300 py-2 px-5 rounded-md w-40"
-			/>
+			>
+				Login
+			</button>
 		</form>
 	);
 };

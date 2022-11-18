@@ -1,14 +1,26 @@
-import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const SearchPage = () => {
-	const handleLogOut = () => {
-		const auth = getAuth();
-		signOut(auth).catch((error) => {
+	const { user, signOutUser } = useAuth();
+	const navigate = useNavigate();
+
+	const handleSignOut = async () => {
+		try {
+			await signOutUser();
+			navigate("/login");
+		} catch (error) {
 			console.log(error);
-		});
+		}
 	};
 
-	return <button onClick={handleLogOut}>Log out</button>;
+	return (
+		<div>
+			{user && user.email}
+			<br />
+			<button onClick={handleSignOut}>Sign Out</button>
+		</div>
+	);
 };
 
 export default SearchPage;

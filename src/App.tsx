@@ -1,45 +1,30 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
-import AuthProvider from "./components/AuthProvider";
-import { initializeApp } from "firebase/app";
-import { config } from "./config/config";
-
-initializeApp(config.firebaseConfig);
-
-/*const renderPage = (
-	component: any,
-	Wrapper: any,
-	options?: { auth: boolean }
-) => {
-	if (!!Wrapper) {
-		return <Wrapper {...options}>{component}</Wrapper>;
-	} else {
-		return component;
-	}
-};*/
+import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoute from "./context/ProtectedRoute";
 
 const router = createBrowserRouter([
 	{
 		path: "/login",
-		element: (
-			<AuthProvider options={{ auth: true }}>
-				<LoginPage />
-			</AuthProvider>
-		),
+		element: <LoginPage />,
 	},
 	{
 		path: "/",
 		element: (
-			<AuthProvider options={{ auth: false }}>
+			<ProtectedRoute>
 				<SearchPage />
-			</AuthProvider>
+			</ProtectedRoute>
 		),
 	},
 ]);
 
 function App() {
-	return <RouterProvider router={router} />;
+	return (
+		<AuthContextProvider>
+			<RouterProvider router={router} />
+		</AuthContextProvider>
+	);
 }
 
 export default App;
