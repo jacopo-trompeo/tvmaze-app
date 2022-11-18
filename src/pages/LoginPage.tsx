@@ -20,36 +20,52 @@ const LoginPage = () => {
 	};
 
 	return (
-		<form className="m-10" onSubmit={handleSubmit}>
-			<div className="flex flex-col py-2">
-				<label htmlFor="email">Email</label>
-				<input
-					onChange={e => setEmail(e.target.value)}
-					value={email}
-					className="border-2 border-stone-500 p-2 rounded"
-					type="email"
-					name="email"
-					id="email"
-				/>
-			</div>
-			<div className="flex flex-col py-2">
-				<label htmlFor="password">Password</label>
-				<input
-					onChange={e => setPassword(e.target.value)}
-					value={password}
-					className="border-2 border-stone-500 p-2 rounded"
-					type="password"
-					name="password"
-					id="password"
-				/>
-			</div>
-			<button
-				className="bg-blue-600 cursor-pointer hover:bg-blue-700 w-full p-3 text-white font-bold rounded"
-				type="submit"
+		<main className="max-w-[90%] md:max-w-[60%] xl:max-w-[35%] mx-auto pt-48">
+			<form
+				className="flex flex-col items-center bg-gray-100 py-20 rounded-lg shadow-lg shadow-stone-400"
+				onSubmit={handleSubmit}
 			>
-				Login
-			</button>
-		</form>
+				<h1 className="mb-8 text-center font-bold text-2xl">
+					Login to TVMaze App
+				</h1>
+				<div className="flex flex-col py-2 w-4/5">
+					<label
+						className="mb-1 font-semibold text-stone-600 text-sm"
+						htmlFor="email"
+					>
+						Email
+					</label>
+					<input
+						type="email"
+						id="email"
+						value={email}
+						onChange={e => setEmail(e.target.value)}
+						className="py-1 border border-stone-300 rounded-md"
+					/>
+				</div>
+				<div className="flex flex-col py-2 w-4/5">
+					<label
+						className="mb-1 font-semibold text-stone-600 text-sm"
+						htmlFor="password"
+					>
+						Password
+					</label>
+					<input
+						type="password"
+						id="password"
+						value={password}
+						onChange={e => setPassword(e.target.value)}
+						className=" py-1 border border-stone-300 rounded-md"
+					/>
+				</div>
+				<button
+					className="bg-blue-500 w-4/5 mt-5 py-2 text-white rounded-md cursor-pointer hover:bg-blue-600"
+					type="submit"
+				>
+					Login
+				</button>
+			</form>
+		</main>
 	);
 };
 
