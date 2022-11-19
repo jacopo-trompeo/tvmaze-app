@@ -6,17 +6,30 @@ const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [error, setError] = useState("");
 	const navigate = useNavigate();
 	const { createUser } = useAuth();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		if (!email || !password || !confirmPassword) {
+			setError("Please fill in all fields");
+			return;
+		}
+
+		if (password !== confirmPassword) {
+			setError("Passwords do not match");
+			return;
+		}
+
 		try {
 			await createUser(email, password);
 			navigate("/");
 		} catch (err: any) {
-			console.log(err);
+			if (err.code === "auth/email-already-in-use") {
+				setError("Email already in use");
+			}
 		}
 	};
 
@@ -36,6 +49,28 @@ const LoginPage = () => {
 			</p>
 
 			<div className="w-full md:max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
+				{error && (
+					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-white bg-pink-700  transition-colors">
+						<p>{error}</p>
+						<button
+							className="ml-auto cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+							onClick={() => setError("")}
+						>
+							<svg
+								className="w-5 h-5"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+							>
+								<path
+									fillRule="evenodd"
+									d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z"
+									clipRule="evenodd"
+								/>
+							</svg>
+						</button>
+					</div>
+				)}
+
 				<form onSubmit={handleSubmit}>
 					<div className="flex flex-col py-2">
 						<label
