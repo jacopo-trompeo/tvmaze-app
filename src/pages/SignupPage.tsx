@@ -50,7 +50,7 @@ const LoginPage = () => {
 
 			<div className="w-full md:max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
 				{error && (
-					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-white bg-pink-700  transition-colors">
+					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-white bg-pink-700">
 						<p>{error}</p>
 						<button
 							className="ml-auto cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-white"
