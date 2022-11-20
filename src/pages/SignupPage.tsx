@@ -123,7 +123,7 @@ const LoginPage = () => {
 						type="submit"
 						className="mt-5 w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
 					>
-						Log In
+						Sign up
 					</button>
 				</form>
 			</div>
