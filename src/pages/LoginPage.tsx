@@ -7,7 +7,7 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
-	const { logIn } = useAuth();
+	const { logIn, logInWithGoogle } = useAuth();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -27,6 +27,15 @@ const LoginPage = () => {
 		}
 	};
 
+	const handleGoogleLogin = async () => {
+		try {
+			await logInWithGoogle();
+			navigate("/");
+		} catch (error: any) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<main className="flex flex-col justify-center items-center h-screen bg-gray-100 px-10">
 			<h2 className="text-center text-4xl font-extrabold text-gray-900">
@@ -42,7 +51,7 @@ const LoginPage = () => {
 				</Link>
 			</p>
 
-			<div className="mt-8 w-full md:max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
+			<div className="mt-8 w-full max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
 				{error && (
 					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-white bg-pink-700">
 						<p>{error}</p>
@@ -102,6 +111,23 @@ const LoginPage = () => {
 						className="mt-5 w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
 					>
 						Log In
+					</button>
+
+					<p className="text-center font-medium my-3">or</p>
+
+					<button
+						type="button"
+						className="flex justify-center items-center w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+						onClick={handleGoogleLogin}
+					>
+						<svg
+							fill="currentColor"
+							viewBox="0 0 16 16"
+							className="mr-3 w-4 h-4"
+						>
+							<path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+						</svg>
+						Sign in with Google
 					</button>
 				</form>
 			</div>

@@ -48,7 +48,7 @@ const LoginPage = () => {
 				</Link>
 			</p>
 
-			<div className="w-full md:max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
+			<div className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
 				{error && (
 					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-white bg-pink-700">
 						<p>{error}</p>
