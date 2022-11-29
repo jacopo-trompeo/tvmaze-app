@@ -41,11 +41,8 @@ const ShowsList = (props: PropTypes) => {
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 my-8">
 			{shows.map((show, i) => (
-				<Link to={`/show/${show.id}`}>
-					<div
-						className="card bg-base-300 shadow-xl image-full hover:scale-105 transition-transform duration-100 cursor-pointer"
-						key={i}
-					>
+				<Link to={`/show/${show.id}`} key={i}>
+					<div className="card bg-base-300 shadow-xl image-full hover:scale-105 transition-transform duration-100 cursor-pointer">
 						<figure className="max-h-[15rem]">
 							<img
 								src={show.image}

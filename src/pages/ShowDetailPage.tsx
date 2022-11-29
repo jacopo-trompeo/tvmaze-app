@@ -66,7 +66,7 @@ const ShowDetailPage = () => {
 							) || "No description available"}
 						</p>
 
-						<Rating rating={showDetails.avgRating || 0} />
+						<Rating rating={showDetails.avgRating} />
 
 						<div className="mt-5 flex gap-3">
 							{showDetails.genres?.map((genre, i) => (
@@ -84,12 +84,15 @@ const ShowDetailPage = () => {
 	);
 };
 
-const Rating = ({ rating }: { rating: number }) => {
-	// rounds number to closes 0.5
-	const roundedRating = Math.round(rating * 2) / 2;
+const Rating = ({ rating }: { rating?: number }) => {
+	/* put rating to 0.5 if rating is 0 or undefined otherwise all
+	the stars will be filled, it needs at least half a star filled*/
+	let normalizedRating = !rating || rating <= 0.5 ? 0.5 : rating;
+	// round the rating to the nearest 0.5
+	const roundedRating = Math.round(normalizedRating * 2) / 2;
 
 	return (
-		<div className="tooltip w-min flex mt-10" data-tip={rating}>
+		<div className="tooltip w-min flex mt-10" data-tip={rating || 0}>
 			<div className="rating rating-half">
 				{[...Array(10)].map((_, i) => (
 					/* using this syntax instead of <> so I can use key, 
