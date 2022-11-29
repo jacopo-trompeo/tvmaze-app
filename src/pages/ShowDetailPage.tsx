@@ -23,7 +23,7 @@ const ShowDetailPage = () => {
 		<>
 			<Navbar />
 			{showDetails ? (
-				<main className="max-w-md px-5 py-10 md:py-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
+				<main className="max-w-md px-5 pb-10 pt-5 md:pt-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
 					<div className="max-w-md mx-auto">
 						<img
 							src={showDetails.image}
@@ -89,27 +89,29 @@ const Rating = ({ rating }: { rating: number }) => {
 	const roundedRating = Math.round(rating * 2) / 2;
 
 	return (
-		<div className="rating rating-half mt-10">
-			{[...Array(10)].map((_, i) => (
-				/* using this syntax instead of <> so I can use key, 
+		<div className="tooltip w-min flex mt-10" data-tip={rating}>
+			<div className="rating rating-half">
+				{[...Array(10)].map((_, i) => (
+					/* using this syntax instead of <> so I can use key, 
         as div or span would break the inputs */
-				<React.Fragment key={i}>
-					<input
-						type="radio"
-						name="rating"
-						className="bg-orange-400 mask mask-star-2 mask-half-1 cursor-default"
-						checked={roundedRating >= i + 0.5}
-						disabled={true}
-					/>
-					<input
-						type="radio"
-						name="rating"
-						className="bg-orange-400 mask mask-star-2 mask-half-2 cursor-default"
-						checked={roundedRating >= i + 1}
-						disabled={true}
-					/>
-				</React.Fragment>
-			))}
+					<React.Fragment key={i}>
+						<input
+							type="radio"
+							name="rating"
+							className="bg-orange-400 mask mask-star-2 mask-half-1 cursor-default"
+							checked={roundedRating >= i + 0.5}
+							disabled={true}
+						/>
+						<input
+							type="radio"
+							name="rating"
+							className="bg-orange-400 mask mask-star-2 mask-half-2 cursor-default"
+							checked={roundedRating >= i + 1}
+							disabled={true}
+						/>
+					</React.Fragment>
+				))}
+			</div>
 		</div>
 	);
 };
