@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ShowType } from "../api";
 
 interface PropTypes {
@@ -40,32 +41,43 @@ const ShowsList = (props: PropTypes) => {
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 my-8">
 			{shows.map((show, i) => (
-				<div className="card bg-base-300 shadow-xl image-full" key={i}>
-					<figure className="max-h-[15rem]">
-						<img
-							src={show.image}
-							alt={show.title}
-							className="h-full w-full object-cover "
-						/>
-					</figure>
-					<div className="card-body">
-						<h2 className="card-title text-2xl">{show.title}</h2>
+				<Link to={`/show/${show.id}`}>
+					<div
+						className="card bg-base-300 shadow-xl image-full hover:scale-105 transition-transform duration-100 cursor-pointer"
+						key={i}
+					>
+						<figure className="max-h-[15rem]">
+							<img
+								src={show.image}
+								alt={show.title}
+								className="h-full w-full object-cover "
+							/>
+						</figure>
+						<div className="card-body">
+							<h2 className="card-title text-2xl">
+								{show.title}
+							</h2>
 
-						<div className="card-actions justify-end mt-auto">
-							{favorites.includes(show.id) ? (
-								<button
-									onClick={() => removeFromFavorites(show.id)}
-								>
-									{heartFull}
-								</button>
-							) : (
-								<button onClick={() => addToFavorites(show.id)}>
-									{heartEmpty}
-								</button>
-							)}
+							<div className="card-actions justify-end mt-auto">
+								{favorites.includes(show.id) ? (
+									<button
+										onClick={() =>
+											removeFromFavorites(show.id)
+										}
+									>
+										{heartFull}
+									</button>
+								) : (
+									<button
+										onClick={() => addToFavorites(show.id)}
+									>
+										{heartEmpty}
+									</button>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
+				</Link>
 			))}
 		</div>
 	);
