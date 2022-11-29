@@ -23,12 +23,12 @@ const ShowDetailPage = () => {
 		<>
 			<Navbar />
 			{showDetails ? (
-				<main className="max-w-md px-5 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-					<div>
+				<main className="max-w-md px-5 py-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
+					<div className="max-w-md mx-auto">
 						<img
 							src={showDetails.image}
 							alt={showDetails.title}
-							className="w-full rounded-lg"
+							className="rounded-lg"
 						/>
 					</div>
 					<div className="flex flex-col justify-center">
@@ -59,7 +59,7 @@ const ShowDetailPage = () => {
 							{showDetails.endDate || "N/A"}
 						</p>
 
-						<p className="mt-10 text-justify">
+						<p className="mt-10 text-justify lg:max-w-[60ch]">
 							{showDetails.summary?.replace(
 								/(<([^>]+)>)/gi,
 								""
