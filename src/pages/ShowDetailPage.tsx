@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShowDetailType, getShowById } from "../api";
 import Navbar from "../components/Navbar";
@@ -23,7 +23,7 @@ const ShowDetailPage = () => {
 		<>
 			<Navbar />
 			{showDetails ? (
-				<main className="max-w-md px-5 py-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
+				<main className="max-w-md px-5 py-10 md:py-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
 					<div className="max-w-md mx-auto">
 						<img
 							src={showDetails.image}
@@ -85,16 +85,30 @@ const ShowDetailPage = () => {
 };
 
 const Rating = ({ rating }: { rating: number }) => {
+	// rounds number to closes 0.5
+	const roundedRating = Math.round(rating * 2) / 2;
+
 	return (
-		<div className="rating mt-10">
+		<div className="rating rating-half mt-10">
 			{[...Array(10)].map((_, i) => (
-				<input
-					type="radio"
-					name="rating-2"
-					className="mask mask-star-2 bg-orange-400"
-					checked={rating > i + 1}
-					key={i}
-				/>
+				/* using this syntax instead of <> so I can use key, 
+        as div or span would break the inputs */
+				<React.Fragment key={i}>
+					<input
+						type="radio"
+						name="rating"
+						className="bg-orange-400 mask mask-star-2 mask-half-1 cursor-default"
+						checked={roundedRating >= i + 0.5}
+						disabled={true}
+					/>
+					<input
+						type="radio"
+						name="rating"
+						className="bg-orange-400 mask mask-star-2 mask-half-2 cursor-default"
+						checked={roundedRating >= i + 1}
+						disabled={true}
+					/>
+				</React.Fragment>
 			))}
 		</div>
 	);
