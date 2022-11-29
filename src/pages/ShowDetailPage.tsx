@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ShowDetailType, getShowById } from "../api";
 import Navbar from "../components/Navbar";
 
 const ShowDetailPage = () => {
 	const { id } = useParams<{ id: string }>();
 	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const showId = id ? parseInt(id) : null;
@@ -31,7 +32,10 @@ const ShowDetailPage = () => {
 						/>
 					</div>
 					<div className="flex flex-col justify-center">
-						<button className="btn btn-circle mb-2">
+						<button
+							className="btn btn-circle mb-2"
+							onClick={() => navigate(-1)}
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
