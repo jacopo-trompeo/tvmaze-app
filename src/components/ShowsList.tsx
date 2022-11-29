@@ -41,40 +41,38 @@ const ShowsList = (props: PropTypes) => {
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 my-8">
 			{shows.map((show, i) => (
-				<Link to={`/show/${show.id}`} key={i}>
-					<div className="card bg-base-300 shadow-xl image-full hover:scale-105 transition-transform duration-100 cursor-pointer">
-						<figure className="max-h-[15rem]">
-							<img
-								src={show.image}
-								alt={show.title}
-								className="h-full w-full object-cover "
-							/>
-						</figure>
-						<div className="card-body">
-							<h2 className="card-title text-2xl">
-								{show.title}
-							</h2>
+				<div className="card bg-base-300 shadow-xl image-full" key={i}>
+					<figure className="max-h-[15rem]">
+						<img
+							src={show.image}
+							alt={show.title}
+							className="h-full w-full object-cover "
+						/>
+					</figure>
+					<div className="card-body">
+						<h2 className="card-title text-2xl">{show.title}</h2>
 
-							<div className="card-actions justify-end mt-auto">
-								{favorites.includes(show.id) ? (
-									<button
-										onClick={() =>
-											removeFromFavorites(show.id)
-										}
-									>
-										{heartFull}
-									</button>
-								) : (
-									<button
-										onClick={() => addToFavorites(show.id)}
-									>
-										{heartEmpty}
-									</button>
-								)}
-							</div>
+						<div className="card-actions justify-end items-center gap-5 mt-auto">
+							<Link
+								to={`/show/${show.id}`}
+								className="btn btn-outline"
+							>
+								Go to details{" "}
+							</Link>
+							{favorites.includes(show.id) ? (
+								<button
+									onClick={() => removeFromFavorites(show.id)}
+								>
+									{heartFull}
+								</button>
+							) : (
+								<button onClick={() => addToFavorites(show.id)}>
+									{heartEmpty}
+								</button>
+							)}
 						</div>
 					</div>
-				</Link>
+				</div>
 			))}
 		</div>
 	);
