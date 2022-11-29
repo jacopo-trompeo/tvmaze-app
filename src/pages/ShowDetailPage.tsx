@@ -66,7 +66,9 @@ const ShowDetailPage = () => {
 							) || "No description available"}
 						</p>
 
-						<div className="mt-10 flex gap-3">
+						<Rating rating={showDetails.avgRating || 0} />
+
+						<div className="mt-5 flex gap-3">
 							{showDetails.genres?.map((genre, i) => (
 								<span className="badge" key={i}>
 									{genre}
@@ -79,6 +81,22 @@ const ShowDetailPage = () => {
 				""
 			)}
 		</>
+	);
+};
+
+const Rating = ({ rating }: { rating: number }) => {
+	return (
+		<div className="rating mt-10">
+			{[...Array(10)].map((_, i) => (
+				<input
+					type="radio"
+					name="rating-2"
+					className="mask mask-star-2 bg-orange-400"
+					checked={rating > i + 1}
+					key={i}
+				/>
+			))}
+		</div>
 	);
 };
 
