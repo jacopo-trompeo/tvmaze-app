@@ -45,7 +45,7 @@ const SearchPage = () => {
 		<>
 			<Navbar />
 			<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
-				<h1 className="text-center font-bold text-3xl sm:text-4xl mt-5">
+				<h1 className="text-center font-bold text-3xl sm:text-4xl">
 					Search for a show
 				</h1>
 
