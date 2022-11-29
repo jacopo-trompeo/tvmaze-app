@@ -38,17 +38,18 @@ const ShowsList = (props: PropTypes) => {
 	);
 
 	return (
-		<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+		<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 my-8">
 			{shows.map((show, i) => (
-				<div
-					className="card md:card-side bg-base-300 shadow-xl"
-					key={i}
-				>
-					<figure>
-						<img src={show.image} alt={show.title} />
+				<div className="card bg-base-300 shadow-xl image-full" key={i}>
+					<figure className="max-h-[15rem]">
+						<img
+							src={show.image}
+							alt={show.title}
+							className="h-full w-full object-cover "
+						/>
 					</figure>
 					<div className="card-body">
-						<h2 className="card-title">{show.title}</h2>
+						<h2 className="card-title text-2xl">{show.title}</h2>
 
 						<div className="card-actions justify-end mt-auto">
 							{favorites.includes(show.id) ? (

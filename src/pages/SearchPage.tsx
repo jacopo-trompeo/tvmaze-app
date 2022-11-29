@@ -46,7 +46,7 @@ const SearchPage = () => {
 				Search for a show
 			</h1>
 
-			<form className="mt-10 mb-8" onSubmit={handleSearch}>
+			<form className="mt-10" onSubmit={handleSearch}>
 				<div className="relative">
 					<input
 						type="text"

@@ -5,7 +5,7 @@ type ShowApiResType = {
 		id: number;
 		name: string;
 		image?: {
-			medium: string;
+			original: string;
 		};
 	};
 };
@@ -55,7 +55,7 @@ export const getShowsBySearch = async (query: string): Promise<ShowType[]> => {
 	return data.map(show => ({
 		id: show.show.id,
 		title: show.show.name,
-		image: show.show.image?.medium,
+		image: show.show.image?.original,
 	}));
 };
 
