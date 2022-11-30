@@ -1,32 +1,16 @@
 import { useState } from "react";
 import { ShowType, getShowsBySearch } from "../api";
-import { useAuth } from "../context/AuthContext";
-import { ref, update, remove } from "firebase/database";
-import { database } from "../firebase";
 import ShowsList from "../components/ShowsList";
 import Navbar from "../components/Navbar";
 
 const SearchPage = () => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [shows, setShows] = useState<ShowType[]>([]);
-	const [favorites, setFavorites] = useState<number[]>([]);
-	const { user } = useAuth();
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const shows = await getShowsBySearch(searchQuery);
 		setShows(shows);
-	};
-
-	const addToFavorites = (showId: number) => {
-		update(ref(database, `users/${user?.uid}/favorites`), {
-			[showId]: showId,
-		});
-	};
-
-	const removeFromFavorites = (showId: number) => {
-		remove(ref(database, `users/${user?.uid}/favorites/${showId}`));
-		setFavorites(favorites.filter(id => id !== showId));
 	};
 
 	return (
@@ -65,11 +49,7 @@ const SearchPage = () => {
 					</div>
 				</form>
 
-				<ShowsList
-					shows={shows}
-					addToFavorites={addToFavorites}
-					removeFromFavorites={removeFromFavorites}
-				></ShowsList>
+				<ShowsList shows={shows}></ShowsList>
 			</main>
 		</>
 	);
