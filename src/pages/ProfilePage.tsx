@@ -1,13 +1,15 @@
+import { onValue, ref } from "firebase/database";
+import { useEffect, useState } from "react";
+import { getShowById, ShowDetailType } from "../api";
+import { useAuth } from "../context/AuthContext";
+import { database } from "../firebase";
 import Navbar from "../components/Navbar";
 import ShowsList from "../components/ShowsList";
-import { useAuth } from "../context/AuthContext";
-import useFavorites from "../hooks/useFavorites";
-import useShows from "../hooks/useShows";
 
 const ProfilePage = () => {
 	const { user } = useAuth();
 	const favoritesIds = useFavorites();
-	const favoriteShows = useShows({ showsIds: favoritesIds });
+	const favoriteShows = useShows(favoritesIds);
 
 	return (
 		<>
@@ -25,6 +27,38 @@ const ProfilePage = () => {
 			</main>
 		</>
 	);
+};
+
+const useFavorites = () => {
+	const [favorites, setFavorites] = useState<number[]>([]);
+	const { user } = useAuth();
+
+	useEffect(() => {
+		const favoritesRef = ref(database, `users/${user?.uid}/favorites`);
+		onValue(favoritesRef, snapshot => {
+			const data = snapshot.val();
+			const favorites: number[] = data ? Object.values(data) : [];
+			setFavorites(favorites);
+		});
+	}, [user]);
+
+	return favorites;
+};
+
+const useShows = (showsIds: number[]) => {
+	const [shows, setShows] = useState<ShowDetailType[]>([]);
+
+	useEffect(() => {
+		const fetchShows = async () => {
+			const showsRes = await Promise.all(
+				showsIds.map(id => getShowById(id))
+			);
+			setShows(showsRes);
+		};
+		fetchShows();
+	}, [showsIds]);
+
+	return shows;
 };
 
 export default ProfilePage;
