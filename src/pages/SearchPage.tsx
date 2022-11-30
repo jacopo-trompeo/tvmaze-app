@@ -31,6 +31,7 @@ const SearchPage = () => {
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setShows([]);
 		setSearchQueryUrl({ query: searchQuery });
 	};
 

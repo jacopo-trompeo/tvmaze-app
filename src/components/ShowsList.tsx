@@ -10,12 +10,10 @@ const ShowsList = ({ shows }: PropTypes) => {
 	const [isLoading, setIsLoading] = useState<boolean>();
 
 	useEffect(() => {
-		setIsLoading(true);
-	}, []);
-
-	useEffect(() => {
 		if (shows.length > 0) {
 			setIsLoading(false);
+		} else {
+			setIsLoading(true);
 		}
 	}, [shows]);
 
