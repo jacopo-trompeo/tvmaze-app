@@ -12,7 +12,7 @@ interface PropTypes {
 
 const ShowsList = ({ shows }: PropTypes) => {
 	const { user } = useAuth();
-	const favorites = useFavorites();
+	const favoritesIds = useFavorites();
 
 	const addToFavorites = (showId: number) => {
 		update(ref(database, `users/${user?.uid}/favorites`), {
@@ -45,7 +45,7 @@ const ShowsList = ({ shows }: PropTypes) => {
 							>
 								Go to details{" "}
 							</Link>
-							{favorites.includes(show.id) ? (
+							{favoritesIds.includes(show.id) ? (
 								<button
 									className="text-accent"
 									onClick={() => removeFromFavorites(show.id)}

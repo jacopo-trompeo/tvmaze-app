@@ -2,12 +2,12 @@ import Navbar from "../components/Navbar";
 import ShowsList from "../components/ShowsList";
 import { useAuth } from "../context/AuthContext";
 import useFavorites from "../hooks/useFavorites";
-import useFavoriteShows from "../hooks/useFavoriteShows";
+import useShows from "../hooks/useShows";
 
 const ProfilePage = () => {
 	const { user } = useAuth();
 	const favoritesIds = useFavorites();
-	const favoriteShows = useFavoriteShows({ favoritesIds });
+	const favoriteShows = useShows({ showsIds: favoritesIds });
 
 	return (
 		<>
