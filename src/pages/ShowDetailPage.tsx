@@ -1,4 +1,3 @@
-import { onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShowDetailType, getShowById } from "../api";
@@ -6,27 +5,13 @@ import BackIcon from "../components/icons/BackIcon";
 import HeartOutlineIcon from "../components/icons/HeartOutlineIcon";
 import HeartIcon from "../components/icons/HeartIcon";
 import Navbar from "../components/Navbar";
-import { useAuth } from "../context/AuthContext";
-import { database } from "../firebase";
+import useIsFavorite from "../hooks/useIsFavorite";
 
 const ShowDetailPage = () => {
-	const { user } = useAuth();
 	const { id } = useParams<{ id: string }>();
 	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
-	const [isFavorite, setIsFavorite] = useState(false);
+	const isFavorite = useIsFavorite(id);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		onValue(
-			ref(database, `users/${user?.uid}/favorites/${id}`),
-			snapshot => {
-				const data = snapshot.val();
-				if (data) {
-					setIsFavorite(true);
-				}
-			}
-		);
-	}, []);
 
 	useEffect(() => {
 		const showId = id ? parseInt(id) : null;

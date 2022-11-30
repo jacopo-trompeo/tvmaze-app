@@ -6,19 +6,19 @@ interface PropTypes {
 }
 
 const useShows = ({ showsIds }: PropTypes) => {
-	const [favoriteShows, setFavoriteShows] = useState<ShowDetailType[]>([]);
+	const [shows, setShows] = useState<ShowDetailType[]>([]);
 
 	useEffect(() => {
 		const fetchShows = async () => {
-			const shows = await Promise.all(
+			const showsRes = await Promise.all(
 				showsIds.map(id => getShowById(id))
 			);
-			setFavoriteShows(shows);
+			setShows(showsRes);
 		};
 		fetchShows();
 	}, [showsIds]);
 
-	return favoriteShows;
+	return shows;
 };
 
 export default useShows;

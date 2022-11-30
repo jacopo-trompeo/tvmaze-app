@@ -5,14 +5,15 @@ import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
 import HeartIcon from "./icons/HeartIcon";
 import HeartOutlineIcon from "./icons/HeartOutlineIcon";
+import useIsFavorite from "../hooks/useIsFavorite";
 
 interface PropTypes {
 	show: ShowType;
-	isFavorite: boolean;
 }
 
-const ShowCard = ({ show, isFavorite }: PropTypes) => {
+const ShowCard = ({ show }: PropTypes) => {
 	const { user } = useAuth();
+	const isFavorite = useIsFavorite(show.id);
 
 	const addToFavorites = (showId: number) => {
 		update(ref(database, `users/${user?.uid}/favorites`), {

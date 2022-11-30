@@ -12,11 +12,7 @@ const ShowsList = ({ shows }: PropTypes) => {
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 my-8">
 			{shows.map((show, i) => (
-				<ShowCard
-					key={i}
-					show={show}
-					isFavorite={favoritesIds.includes(show.id)}
-				/>
+				<ShowCard key={i} show={show} />
 			))}
 		</div>
 	);
