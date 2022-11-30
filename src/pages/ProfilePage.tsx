@@ -34,16 +34,17 @@ const ProfilePage = () => {
 	};
 
 	return (
-		<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
+		<>
 			<Navbar />
-
-			<ShowsList
-				shows={favoriteShows}
-				favorites={favorites}
-				addToFavorites={() => {}}
-				removeFromFavorites={() => {}}
-			/>
-		</main>
+			<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
+				<ShowsList
+					shows={favoriteShows}
+					favorites={favorites}
+					addToFavorites={() => {}}
+					removeFromFavorites={() => {}}
+				/>
+			</main>
+		</>
 	);
 };
 
