@@ -1,13 +1,32 @@
+import { onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShowDetailType, getShowById } from "../api";
 import BackIcon from "../components/icons/BackIcon";
+import HeartEmptyIcon from "../components/icons/HeartEmptyIcon";
+import HeartFullIcon from "../components/icons/HeartFullIcon";
 import Navbar from "../components/Navbar";
+import { useAuth } from "../context/AuthContext";
+import { database } from "../firebase";
 
 const ShowDetailPage = () => {
+	const { user } = useAuth();
 	const { id } = useParams<{ id: string }>();
 	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
+	const [isFavorite, setIsFavorite] = useState(false);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		onValue(
+			ref(database, `users/${user?.uid}/favorites/${id}`),
+			snapshot => {
+				const data = snapshot.val();
+				if (data) {
+					setIsFavorite(true);
+				}
+			}
+		);
+	}, []);
 
 	useEffect(() => {
 		const showId = id ? parseInt(id) : null;
@@ -33,12 +52,21 @@ const ShowDetailPage = () => {
 						/>
 					</div>
 					<div className="flex flex-col justify-center">
-						<button
-							className="btn btn-circle mb-2"
-							onClick={() => navigate(-1)}
-						>
-							<BackIcon />
-						</button>
+						<div className="flex items-center gap-5 mb-2">
+							<button
+								className="btn btn-circle "
+								onClick={() => navigate(-1)}
+							>
+								<BackIcon />
+							</button>
+							<button className="btn btn-circle text-accent">
+								{isFavorite ? (
+									<HeartFullIcon />
+								) : (
+									<HeartEmptyIcon />
+								)}
+							</button>
+						</div>
 						<h1 className="text-4xl font-semibold">
 							{showDetails.title}
 						</h1>
