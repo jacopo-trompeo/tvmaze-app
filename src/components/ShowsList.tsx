@@ -1,15 +1,26 @@
+import { ref, remove, update } from "firebase/database";
 import { Link } from "react-router-dom";
 import { ShowType } from "../api";
-
+import { useAuth } from "../context/AuthContext";
+import { database } from "../firebase";
+import useFavorites from "../hooks/useFavorites";
 interface PropTypes {
 	shows: ShowType[];
-	favorites: number[];
-	addToFavorites: (showId: number) => void;
-	removeFromFavorites: (showId: number) => void;
 }
 
-const ShowsList = (props: PropTypes) => {
-	const { shows, favorites, addToFavorites, removeFromFavorites } = props;
+const ShowsList = ({ shows }: PropTypes) => {
+	const { user } = useAuth();
+	const favorites = useFavorites();
+
+	const addToFavorites = (showId: number) => {
+		update(ref(database, `users/${user?.uid}/favorites`), {
+			[showId]: showId,
+		});
+	};
+
+	const removeFromFavorites = (showId: number) => {
+		remove(ref(database, `users/${user?.uid}/favorites/${showId}`));
+	};
 
 	const heartEmpty = (
 		<svg
