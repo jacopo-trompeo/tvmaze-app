@@ -5,7 +5,7 @@ interface PropTypes {
 	favoritesIds: number[];
 }
 
-export default ({ favoritesIds }: PropTypes) => {
+const useFavoriteShows = ({ favoritesIds }: PropTypes) => {
 	const [favoriteShows, setFavoriteShows] = useState<ShowDetailType[]>([]);
 
 	useEffect(() => {
@@ -20,3 +20,5 @@ export default ({ favoritesIds }: PropTypes) => {
 
 	return favoriteShows;
 };
+
+export default useFavoriteShows;

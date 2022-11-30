@@ -4,7 +4,7 @@ import { database } from "../firebase";
 import { ref, onValue } from "firebase/database";
 import { useAuth } from "../context/AuthContext";
 
-export default () => {
+const useFavorites = () => {
 	const [favorites, setFavorites] = useState<number[]>([]);
 	const { user } = useAuth();
 
@@ -19,3 +19,5 @@ export default () => {
 
 	return favorites;
 };
+
+export default useFavorites;

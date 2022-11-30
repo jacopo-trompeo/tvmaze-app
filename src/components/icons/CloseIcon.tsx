@@ -1,4 +1,4 @@
-export default () => (
+const CloseIcon = () => (
 	<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
 		<path
 			fillRule="evenodd"
@@ -7,3 +7,5 @@ export default () => (
 		/>
 	</svg>
 );
+
+export default CloseIcon;
