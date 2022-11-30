@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { ShowType } from "../api";
-
+import useFavorites from "../hooks/useFavorites";
 interface PropTypes {
 	shows: ShowType[];
-	favorites: number[];
 	addToFavorites: (showId: number) => void;
 	removeFromFavorites: (showId: number) => void;
 }
 
 const ShowsList = (props: PropTypes) => {
-	const { shows, favorites, addToFavorites, removeFromFavorites } = props;
+	const { shows, addToFavorites, removeFromFavorites } = props;
+	const favorites = useFavorites();
 
 	const heartEmpty = (
 		<svg

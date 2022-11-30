@@ -5,14 +5,14 @@ import { ref, onValue } from "firebase/database";
 import { useAuth } from "../context/AuthContext";
 
 export default () => {
-	const [favorites, setFavorites] = useState<string[]>([]);
+	const [favorites, setFavorites] = useState<number[]>([]);
 	const { user } = useAuth();
 
 	useEffect(() => {
 		const favoritesRef = ref(database, `users/${user?.uid}/favorites`);
 		onValue(favoritesRef, snapshot => {
 			const data = snapshot.val();
-			const favorites = data ? Object.keys(data) : [];
+			const favorites: number[] = data ? Object.values(data) : [];
 			setFavorites(favorites);
 		});
 	}, [user]);

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ShowType, getShowsBySearch } from "../api";
 import { useAuth } from "../context/AuthContext";
-import { ref, update, onValue, remove } from "firebase/database";
+import { ref, update, remove } from "firebase/database";
 import { database } from "../firebase";
 import ShowsList from "../components/ShowsList";
 import Navbar from "../components/Navbar";
@@ -11,18 +11,6 @@ const SearchPage = () => {
 	const [shows, setShows] = useState<ShowType[]>([]);
 	const [favorites, setFavorites] = useState<number[]>([]);
 	const { user } = useAuth();
-
-	useEffect(() => {
-		const favoritesRef = ref(database, `users/${user?.uid}/favorites`);
-		onValue(favoritesRef, snapshot => {
-			const data = snapshot.val();
-			if (!data) {
-				return;
-			}
-
-			setFavorites(Object.values(data));
-		});
-	}, [user]);
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -79,7 +67,6 @@ const SearchPage = () => {
 
 				<ShowsList
 					shows={shows}
-					favorites={favorites}
 					addToFavorites={addToFavorites}
 					removeFromFavorites={removeFromFavorites}
 				></ShowsList>
