@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import SearchPage from "./pages/SearchPage";
 import ShowDetailPage from "./pages/ShowDetailPage";
+import ProfilePage from "./pages/ProfilePage";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
 		element: (
 			<ProtectedRoute>
 				<ShowDetailPage />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: "/profile",
+		element: (
+			<ProtectedRoute>
+				<ProfilePage />
 			</ProtectedRoute>
 		),
 	},
