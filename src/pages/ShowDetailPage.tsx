@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShowDetailType, getShowById } from "../api";
+import BackIcon from "../components/icons/BackIcon";
 import Navbar from "../components/Navbar";
 
 const ShowDetailPage = () => {
@@ -36,20 +37,7 @@ const ShowDetailPage = () => {
 							className="btn btn-circle mb-2"
 							onClick={() => navigate(-1)}
 						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth={1.5}
-								stroke="currentColor"
-								className="w-6 h-6"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-								/>
-							</svg>
+							<BackIcon />
 						</button>
 						<h1 className="text-4xl font-semibold">
 							{showDetails.title}
