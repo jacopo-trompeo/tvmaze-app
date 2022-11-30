@@ -13,32 +13,14 @@ const ProfilePage = () => {
 		<>
 			<Navbar />
 			<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
-				<div className="grid grid-cols-1 sm:grid-cols-2 sm:max-w-4xl mx-auto">
-					<div>
-						<img
-							src="https://placeimg.com/200/200/people"
-							alt="Your profile image"
-							className="rounded-md w-50 h-50 mx-auto"
-						/>
-					</div>
-					<div className="text-center mt-10 sm:mt-0">
-						<h1 className="sm:mt-10 text-2xl font-bold">
-							{user?.email}
-						</h1>
-
-						<div className="flex mt-10 sm:mt-20 justify-center">
-							<button className="btn btn-sm btn-outline">
-								Change image
-							</button>
-						</div>
-					</div>
-				</div>
-
-				<div className="divider my-10" />
-
 				<h1 className="text-center font-bold text-3xl sm:text-4xl">
-					Your favorite shows
+					<span className="font-semibold">Welcome</span>{" "}
+					<span className="text-accent">{user?.email}</span>
 				</h1>
+
+				<h2 className="text-center font-bold text-2xl sm:text-3xl mt-10">
+					Your favorite shows
+				</h2>
 				<ShowsList shows={favoriteShows} />
 			</main>
 		</>
