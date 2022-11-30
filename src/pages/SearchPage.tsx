@@ -1,17 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShowType, getShowsBySearch } from "../api";
 import ShowsList from "../components/ShowsList";
 import Navbar from "../components/Navbar";
 import SearchIcon from "../components/icons/SearchIcon";
+import { useSearchParams } from "react-router-dom";
 
 const SearchPage = () => {
 	const [searchQuery, setSearchQuery] = useState("");
+	const [searchQueryUrl, setSearchQueryUrl] = useSearchParams("");
 	const [shows, setShows] = useState<ShowType[]>([]);
+	const [emptyResult, setEmptyResult] = useState(false);
+
+	useEffect(() => {
+		const getShows = async () => {
+			setEmptyResult(false);
+
+			const shows = await getShowsBySearch(
+				searchQueryUrl.get("query") || ""
+			);
+
+			if (shows.length === 0) {
+				setEmptyResult(true);
+			}
+
+			setShows(shows);
+		};
+
+		getShows();
+	}, [searchQueryUrl]);
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const shows = await getShowsBySearch(searchQuery);
-		setShows(shows);
+		setSearchQueryUrl({ query: searchQuery });
 	};
 
 	return (
@@ -37,7 +57,17 @@ const SearchPage = () => {
 					</div>
 				</form>
 
-				<ShowsList shows={shows}></ShowsList>
+				{!emptyResult ? (
+					<ShowsList shows={shows}></ShowsList>
+				) : (
+					<p className="text-xl font-semibold text-center mt-10">
+						Your search for{" "}
+						<span className="italic font-bold">
+							"{searchQueryUrl.get("query")}"
+						</span>{" "}
+						yielded no results.
+					</p>
+				)}
 			</main>
 		</>
 	);
