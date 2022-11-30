@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShowDetailType, getShowById } from "../api";
 import BackIcon from "../components/icons/BackIcon";
-import HeartEmptyIcon from "../components/icons/HeartEmptyIcon";
-import HeartFullIcon from "../components/icons/HeartFullIcon";
+import HeartOutlineIcon from "../components/icons/HeartOutlineIcon";
+import HeartIcon from "../components/icons/HeartIcon";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
@@ -61,9 +61,9 @@ const ShowDetailPage = () => {
 							</button>
 							<button className="btn btn-circle text-accent">
 								{isFavorite ? (
-									<HeartFullIcon />
+									<HeartIcon />
 								) : (
-									<HeartEmptyIcon />
+									<HeartOutlineIcon />
 								)}
 							</button>
 						</div>

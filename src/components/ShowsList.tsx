@@ -4,8 +4,9 @@ import { ShowType } from "../api";
 import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
 import useFavorites from "../hooks/useFavorites";
-import HeartEmptyIcon from "./icons/HeartEmptyIcon";
-import HeartFullIcon from "./icons/HeartFullIcon";
+import HeartIcon from "./icons/HeartIcon";
+import HeartOutlineIcon from "./icons/HeartOutlineIcon";
+
 interface PropTypes {
 	shows: ShowType[];
 }
@@ -50,11 +51,11 @@ const ShowsList = ({ shows }: PropTypes) => {
 									className="text-accent"
 									onClick={() => removeFromFavorites(show.id)}
 								>
-									<HeartFullIcon />
+									<HeartIcon />
 								</button>
 							) : (
 								<button onClick={() => addToFavorites(show.id)}>
-									<HeartEmptyIcon />
+									<HeartOutlineIcon />
 								</button>
 							)}
 						</div>

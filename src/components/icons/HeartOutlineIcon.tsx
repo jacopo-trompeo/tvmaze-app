@@ -1,4 +1,4 @@
-const HeartEmptyIcon = () => (
+const HeartOutlineIcon = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -15,4 +15,4 @@ const HeartEmptyIcon = () => (
 	</svg>
 );
 
-export default HeartEmptyIcon;
+export default HeartOutlineIcon;
