@@ -26,12 +26,9 @@ const ProfilePage = () => {
 							{user?.email}
 						</h1>
 
-						<div className="flex gap-5 mt-10 sm:mt-20 justify-center">
+						<div className="flex mt-10 sm:mt-20 justify-center">
 							<button className="btn btn-sm btn-outline">
 								Change image
-							</button>
-							<button className="btn btn-sm btn-error">
-								Delete account
 							</button>
 						</div>
 					</div>

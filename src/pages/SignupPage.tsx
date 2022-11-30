@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { ref, set } from "firebase/database";
-import { database } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { UserCredential } from "firebase/auth";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
@@ -12,12 +9,6 @@ const LoginPage = () => {
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
 	const { createUser } = useAuth();
-
-	const saveUserToDatabase = async (user: UserCredential) => {
-		set(ref(database, `users/${user.user?.uid}`), {
-			email: user.user?.email,
-		});
-	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -34,7 +25,6 @@ const LoginPage = () => {
 
 		try {
 			const user = await createUser(email, password);
-			saveUserToDatabase(user);
 			navigate("/");
 		} catch (err: any) {
 			if (err.code === "auth/email-already-in-use") {
