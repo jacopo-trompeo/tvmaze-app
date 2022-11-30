@@ -101,14 +101,14 @@ const Rating = ({ rating }: { rating?: number }) => {
 						<input
 							type="radio"
 							name="rating"
-							className="bg-warning mask mask-star-2 mask-half-1 cursor-default"
+							className="bg-accent mask mask-star-2 mask-half-1 cursor-default"
 							checked={roundedRating >= i + 0.5}
 							disabled={true}
 						/>
 						<input
 							type="radio"
 							name="rating"
-							className="bg-warning mask mask-star-2 mask-half-2 cursor-default"
+							className="bg-accent mask mask-star-2 mask-half-2 cursor-default"
 							checked={roundedRating >= i + 1}
 							disabled={true}
 						/>
