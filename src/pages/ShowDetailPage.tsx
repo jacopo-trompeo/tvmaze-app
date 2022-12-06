@@ -117,11 +117,11 @@ const ShowDetailPage = () => {
 							{showDetails.endDate || "N/A"}
 						</p>
 
-						<p className="mt-10 text-justify lg:max-w-[60ch]">
+						<span className="mt-10 text-justify lg:max-w-[60ch]">
 							{showDetails.summary
 								? parse(showDetails.summary)
 								: "No description available"}
-						</p>
+						</span>
 
 						<Rating rating={showDetails.avgRating} />
 
