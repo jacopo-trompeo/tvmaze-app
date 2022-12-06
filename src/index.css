@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* adding this so the "now watching" section doesn't overlap the content of the page*/
+@media screen and (max-width: 768px) {
+  body {
+    position: relative;
+    margin-bottom: 8rem;
+  }
+}
