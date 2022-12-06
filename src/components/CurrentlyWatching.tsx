@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
 import { getShowById, ShowDetailType } from "../api";
+import { Link } from "react-router-dom";
+import TVIcon from "./icons/TVIcon";
 
 const CurrentlyWatching = () => {
 	const currentlyWatchingId = useCurrentlyWatching();
@@ -23,18 +25,26 @@ const CurrentlyWatching = () => {
 	}, [currentlyWatchingId]);
 
 	return (
-		<div className="toast toast-end z-50">
-			<div className="alert bg-accent text-neutral">
-				<div className="flex flex-col items-start p-5">
-					<span className="text-2xl">Now watching</span>
-					{currentlyWatchingShow && (
-						<span className="text-5xl font-bold">
-							{currentlyWatchingShow.title}
-						</span>
-					)}
+		currentlyWatchingId && (
+			<Link
+				to={`/show/${currentlyWatchingId}`}
+				className="toast toast-end right-5 bottom-5 z-50 hover:scale-105 transition-transform"
+			>
+				<div className="alert bg-accent text-neutral">
+					<div className="flex flex-col items-start p-5">
+						<div className="flex gap-2 items-center">
+							<TVIcon />
+							<span className="text-2xl">Now watching</span>
+						</div>
+						{currentlyWatchingShow && (
+							<span className="text-5xl font-medium">
+								{currentlyWatchingShow.title}
+							</span>
+						)}
+					</div>
 				</div>
-			</div>
-		</div>
+			</Link>
+		)
 	);
 };
 
