@@ -93,7 +93,7 @@ const Rating = ({ rating }: { rating?: number }) => {
 	const roundedRating = Math.round(normalizedRating * 2) / 2;
 
 	return (
-		<div className="tooltip w-min flex mt-10" data-tip={rating || 0}>
+		<div className="tooltip w-min flex mt-10" data-tip={rating || "N/A"}>
 			<div className="rating rating-half">
 				{[...Array(10)].map((_, i) => (
 					/* using this syntax instead of <> so I can use key, 
