@@ -4,6 +4,7 @@ import ShowsList from "../components/ShowsList";
 import Navbar from "../components/Navbar";
 import SearchIcon from "../components/icons/SearchIcon";
 import { useSearchParams } from "react-router-dom";
+import CurrentlyWatching from "../components/CurrentlyWatching";
 
 const SearchPage = () => {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -74,6 +75,8 @@ const SearchPage = () => {
 						yielded no results.
 					</p>
 				)}
+
+				<CurrentlyWatching />
 			</main>
 		</>
 	);
