@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 import useIsFavorite from "../hooks/useIsFavorite";
 import { useAuth } from "../context/AuthContext";
 import { addToFavorites, removeFromFavorites } from "../firebase/realtimedb";
+import placeholderImageVertical from "../assets/placeholder-vertical.jpg";
 
 const ShowDetailPage = () => {
 	const { user } = useAuth();
@@ -34,7 +35,7 @@ const ShowDetailPage = () => {
 				<main className="max-w-md px-5 pb-10 pt-5 md:pt-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
 					<div className="max-w-md mx-auto">
 						<img
-							src={showDetails.image}
+							src={showDetails.image || placeholderImageVertical}
 							alt={showDetails.title}
 							className="rounded-lg"
 						/>
