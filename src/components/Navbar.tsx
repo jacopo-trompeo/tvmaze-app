@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import avatarImage from "../assets/avatar.jpg";
 
 const Navbar = () => {
 	const { logOut } = useAuth();
@@ -28,7 +29,7 @@ const Navbar = () => {
 			<div className="dropdown dropdown-end">
 				<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
 					<div className="w-20 rounded-full">
-						<img src="https://placeimg.com/80/80/people" />
+						<img src={avatarImage} />
 					</div>
 				</label>
 				<ul
