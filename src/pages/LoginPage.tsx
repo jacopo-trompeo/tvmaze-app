@@ -47,7 +47,7 @@ const LoginPage = () => {
 				Don't have an account?{" "}
 				<Link
 					to="/signup"
-					className="font-medium text-secondary-focus hover:text-secondary focus:outline-none focus:border-b focus:border-secondary"
+					className="font-medium text-secondary hover:text-secondary-focus focus:outline-none focus:border-b focus:border-secondary"
 				>
 					Sign up here.
 				</Link>
