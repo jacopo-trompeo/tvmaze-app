@@ -27,9 +27,9 @@ const CurrentlyWatching = () => {
 	return currentlyWatchingId ? (
 		<Link
 			to={`/show/${currentlyWatchingId}`}
-			className="toast toast-end w-full md:w-auto md:right-5 md:bottom-5 z-50 hover:scale-105 transition-transform"
+			className="p-0 toast toast-end w-full md:w-auto md:right-10 md:bottom-10 z-50 hover:scale-105 transition-transform"
 		>
-			<div className="alert bg-accent text-neutral">
+			<div className="alert rounded-none md:rounded-xl bg-accent text-neutral">
 				<div className="flex flex-col items-start md:p-5">
 					<div className="flex gap-2 items-center">
 						<TVIcon />
@@ -38,7 +38,7 @@ const CurrentlyWatching = () => {
 						</span>
 					</div>
 					{currentlyWatchingShow && (
-						<span className="text-2xl text-left w-full md:text-3xl font-medium">
+						<span className="text-2xl text-center md:text-left w-full md:text-3xl font-medium">
 							{currentlyWatchingShow.title}
 						</span>
 					)}
