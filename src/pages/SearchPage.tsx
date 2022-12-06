@@ -11,6 +11,7 @@ const SearchPage = () => {
 	const [searchQueryUrl, setSearchQueryUrl] = useSearchParams("");
 	const [shows, setShows] = useState<ShowType[]>([]);
 	const [emptyResult, setEmptyResult] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const getShows = async () => {
@@ -21,6 +22,8 @@ const SearchPage = () => {
 				return;
 			}
 
+			setLoading(true);
+
 			const shows = await getShowsBySearch(
 				searchQueryUrl.get("query") as string
 			);
@@ -30,6 +33,7 @@ const SearchPage = () => {
 			}
 
 			setShows(shows);
+			setLoading(false);
 		};
 
 		getShows();
@@ -64,9 +68,9 @@ const SearchPage = () => {
 					</div>
 				</form>
 
-				{!emptyResult ? (
-					<ShowsList shows={shows}></ShowsList>
-				) : (
+				{loading ? (
+					<div className="animate-spin rounded-full h-32 w-32 mx-auto border-b-4 border-white mt-40" />
+				) : emptyResult ? (
 					<p className="text-xl font-semibold text-center mt-10">
 						Your search for{" "}
 						<span className="italic font-bold">
@@ -74,6 +78,8 @@ const SearchPage = () => {
 						</span>{" "}
 						yielded no results.
 					</p>
+				) : (
+					<ShowsList shows={shows}></ShowsList>
 				)}
 
 				<CurrentlyWatching />
