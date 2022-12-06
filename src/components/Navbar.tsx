@@ -16,18 +16,21 @@ const Navbar = () => {
 	};
 
 	return (
-		<nav className="navbar bg-base-100 mb-10 p-3 sticky top-0 z-50">
+		<nav className="navbar bg-base-100 mb-10 p-3 md:p-5 sticky top-0 z-50">
 			<div className="flex-1">
 				<Link
 					to={"/"}
-					className="btn btn-ghost normal-case text-xl sm:text-2xl md:text-3xl font-bold"
+					className="btn btn-ghost normal-case text-xl sm:text-2xl md:text-4xl font-bold"
 				>
 					<span className="text-accent">TVMaze</span> App
 				</Link>
 			</div>
 
 			<div className="dropdown dropdown-end">
-				<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+				<label
+					tabIndex={0}
+					className="btn btn-ghost md:btn-lg btn-circle avatar"
+				>
 					<div className="w-20 rounded-full">
 						<img src={avatarImage} />
 					</div>
