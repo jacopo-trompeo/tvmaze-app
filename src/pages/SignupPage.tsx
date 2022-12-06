@@ -35,26 +35,26 @@ const LoginPage = () => {
 	};
 
 	return (
-		<main className="flex flex-col justify-center items-center h-screen bg-gray-100 px-10">
-			<h2 className="text-center text-4xl font-extrabold text-gray-900">
+		<main className="flex flex-col justify-center items-center h-screen px-10">
+			<h2 className="text-center text-4xl font-extrabold">
 				Sign up to TVMaze App
 			</h2>
-			<p className="mt-4 mb-8 text-center text-sm text-gray-600">
+			<p className="mt-4 mb-8 text-center text-sm">
 				Already have an account?{" "}
 				<Link
 					to="/login"
-					className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:border-b focus:border-indigo-500"
+					className="font-medium text-secondary hover:text-secondary-focus focus:outline-none focus:border-b focus:border-secondary"
 				>
 					Sign in here.
 				</Link>
 			</p>
 
-			<div className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg py-10 px-6">
+			<div className="w-full max-w-md mx-auto bg-neutral shadow-md rounded-lg py-10 px-6">
 				{error && (
-					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-white bg-pink-700">
+					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-primary-content bg-error">
 						<p>{error}</p>
 						<button
-							className="ml-auto cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+							className="ml-auto cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-primary-content"
 							onClick={() => setError("")}
 						>
 							<CloseIcon />
@@ -66,55 +66,55 @@ const LoginPage = () => {
 					<div className="flex flex-col py-2">
 						<label
 							htmlFor="email"
-							className="mb-1 text-sm font-medium text-gray-700"
+							className="mb-1 text-sm font-medium"
 						>
 							Email
 						</label>
 						<input
 							value={email}
-							onChange={e => setEmail(e.target.value)}
+							onChange={(e) => setEmail(e.target.value)}
 							type="email"
 							id="email"
-							className="border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+							className="input input-bordered w-full"
 						/>
 					</div>
 					<div className="flex flex-col py-2">
 						<label
 							htmlFor="password"
-							className="mb-1 text-sm font-medium text-gray-700 "
+							className="mb-1 text-sm font-medium"
 						>
 							Password
 						</label>
 						<input
 							value={password}
-							onChange={e => setPassword(e.target.value)}
+							onChange={(e) => setPassword(e.target.value)}
 							type="password"
 							id="password"
-							className="border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+							className="input input-bordered w-full"
 						/>
 					</div>
 
 					<div className="flex flex-col py-2">
 						<label
 							htmlFor="confirmPassword"
-							className="mb-1 text-sm font-medium text-gray-700 "
+							className="mb-1 text-sm font-medium"
 						>
 							Confirm password
 						</label>
 						<input
 							value={confirmPassword}
-							onChange={e => setConfirmPassword(e.target.value)}
+							onChange={(e) => setConfirmPassword(e.target.value)}
 							type="password"
 							id="confirmPassword"
-							className="border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+							className="input input-bordered w-full"
 						/>
 					</div>
 
 					<button
 						type="submit"
-						className="mt-5 w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+						className="mt-5 w-full btn btn-primary"
 					>
-						Log In
+						Sign up
 					</button>
 				</form>
 			</div>
