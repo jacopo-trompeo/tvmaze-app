@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import Loading from "../components/Loading";
 
 interface PropTypes {
 	children: JSX.Element;
@@ -29,7 +30,7 @@ const ProtectedRoute = ({ children, isAuth }: PropTypes) => {
 	}, [user, isAuth]);
 
 	if (loading) {
-		return <h1>Loading...</h1>;
+		return <Loading />;
 	}
 
 	return children;
