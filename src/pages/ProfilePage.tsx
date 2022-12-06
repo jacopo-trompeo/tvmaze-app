@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
 import Navbar from "../components/Navbar";
 import ShowsList from "../components/ShowsList";
+import CurrentlyWatching from "../components/CurrentlyWatching";
 
 const ProfilePage = () => {
 	const { user } = useAuth();
@@ -24,6 +25,8 @@ const ProfilePage = () => {
 					Your favorite shows
 				</h2>
 				<ShowsList shows={favoriteShows} />
+
+				<CurrentlyWatching />
 			</main>
 		</>
 	);

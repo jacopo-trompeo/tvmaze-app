@@ -24,30 +24,28 @@ const CurrentlyWatching = () => {
 		getShow();
 	}, [currentlyWatchingId]);
 
-	return (
-		currentlyWatchingId && (
-			<Link
-				to={`/show/${currentlyWatchingId}`}
-				className="toast toast-end w-full md:w-auto md:right-5 md:bottom-5 z-50 hover:scale-105 transition-transform"
-			>
-				<div className="alert bg-accent text-neutral">
-					<div className="flex flex-col items-start md:p-5">
-						<div className="flex gap-2 items-center">
-							<TVIcon />
-							<span className="text-xl md:text-2xl">
-								Now watching
-							</span>
-						</div>
-						{currentlyWatchingShow && (
-							<span className="text-2xl text-left w-full md:text-3xl font-medium">
-								{currentlyWatchingShow.title}
-							</span>
-						)}
+	return currentlyWatchingId ? (
+		<Link
+			to={`/show/${currentlyWatchingId}`}
+			className="toast toast-end w-full md:w-auto md:right-5 md:bottom-5 z-50 hover:scale-105 transition-transform"
+		>
+			<div className="alert bg-accent text-neutral">
+				<div className="flex flex-col items-start md:p-5">
+					<div className="flex gap-2 items-center">
+						<TVIcon />
+						<span className="text-xl md:text-2xl">
+							Now watching
+						</span>
 					</div>
+					{currentlyWatchingShow && (
+						<span className="text-2xl text-left w-full md:text-3xl font-medium">
+							{currentlyWatchingShow.title}
+						</span>
+					)}
 				</div>
-			</Link>
-		)
-	);
+			</div>
+		</Link>
+	) : null;
 };
 
 const useCurrentlyWatching = () => {

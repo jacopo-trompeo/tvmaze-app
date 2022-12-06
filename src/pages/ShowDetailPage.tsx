@@ -17,6 +17,7 @@ import {
 	removeFromWatching,
 } from "../firebase/realtimedb";
 import placeholderImageVertical from "../assets/placeholder-vertical.jpg";
+import CurrentlyWatching from "../components/CurrentlyWatching";
 
 const ShowDetailPage = () => {
 	const { user } = useAuth();
@@ -132,6 +133,8 @@ const ShowDetailPage = () => {
 							))}
 						</div>
 					</div>
+
+					<CurrentlyWatching />
 				</main>
 			) : (
 				""
