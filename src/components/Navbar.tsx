@@ -16,7 +16,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<nav className="navbar bg-base-100 mb-10 p-3 shadow-xl sticky top-0 z-50">
+		<nav className="navbar bg-base-100 mb-10 p-3 sticky top-0 z-50">
 			<div className="flex-1">
 				<a
 					href={"/"}
