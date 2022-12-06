@@ -15,8 +15,12 @@ const SearchPage = () => {
 		const getShows = async () => {
 			setEmptyResult(false);
 
+			if (!searchQueryUrl.get("query")) {
+				return;
+			}
+
 			const shows = await getShowsBySearch(
-				searchQueryUrl.get("query") || ""
+				searchQueryUrl.get("query") as string
 			);
 
 			if (shows.length === 0) {
@@ -50,7 +54,7 @@ const SearchPage = () => {
 							placeholder="Search by name..."
 							className="input input-bordered input-accent w-full"
 							value={searchQuery}
-							onChange={e => setSearchQuery(e.target.value)}
+							onChange={(e) => setSearchQuery(e.target.value)}
 						/>
 						<button className="absolute right-5 top-3">
 							<SearchIcon />
