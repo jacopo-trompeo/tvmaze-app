@@ -5,7 +5,7 @@ import { database } from "../firebase";
 
 const useIsFavorite = (id?: string | number) => {
 	const { user } = useAuth();
-	const [isFavorite, setIsFavorite] = useState(false);
+	const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (!user) {
@@ -14,11 +14,9 @@ const useIsFavorite = (id?: string | number) => {
 
 		onValue(
 			ref(database, `users/${user.uid}/favorites/${id}`),
-			snapshot => {
+			(snapshot) => {
 				const data = snapshot.val();
-				if (data) {
-					setIsFavorite(true);
-				}
+				setIsFavorite(!!data);
 			}
 		);
 	}, [user]);

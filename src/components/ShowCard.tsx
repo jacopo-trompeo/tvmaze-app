@@ -6,6 +6,7 @@ import { database } from "../firebase";
 import HeartIcon from "./icons/HeartIcon";
 import HeartOutlineIcon from "./icons/HeartOutlineIcon";
 import useIsFavorite from "../hooks/useIsFavorite";
+import { useEffect } from "react";
 
 interface PropTypes {
 	show: ShowType;
