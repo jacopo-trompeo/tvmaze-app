@@ -4,10 +4,18 @@ import { ShowDetailType, getShowById } from "../api";
 import BackIcon from "../components/icons/BackIcon";
 import HeartOutlineIcon from "../components/icons/HeartOutlineIcon";
 import HeartIcon from "../components/icons/HeartIcon";
+import PlusIcon from "../components/icons/PlusIcon";
+import CheckIcon from "../components/icons/CheckIcon";
 import Navbar from "../components/Navbar";
 import useIsFavorite from "../hooks/useIsFavorite";
+import useIsWatching from "../hooks/useIsWatching";
 import { useAuth } from "../context/AuthContext";
-import { addToFavorites, removeFromFavorites } from "../firebase/realtimedb";
+import {
+	addToFavorites,
+	removeFromFavorites,
+	addToWatching,
+	removeFromWatching,
+} from "../firebase/realtimedb";
 import placeholderImageVertical from "../assets/placeholder-vertical.jpg";
 
 const ShowDetailPage = () => {
@@ -15,6 +23,7 @@ const ShowDetailPage = () => {
 	const { id } = useParams<{ id: string }>();
 	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
 	const isFavorite = useIsFavorite(id);
+	const isWatching = useIsWatching(id);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -69,6 +78,33 @@ const ShowDetailPage = () => {
 								>
 									<HeartOutlineIcon />
 								</button>
+							)}
+							{!isWatching ? (
+								<div
+									className="tooltip"
+									data-tip="Add to watching"
+								>
+									<button
+										className="btn btn-circle"
+										onClick={() =>
+											addToWatching(showDetails.id, user)
+										}
+									>
+										<PlusIcon />
+									</button>
+								</div>
+							) : (
+								<div
+									className="tooltip"
+									data-tip="Remove from watching"
+								>
+									<button
+										className="btn btn-circle text-success"
+										onClick={() => removeFromWatching(user)}
+									>
+										<CheckIcon />
+									</button>
+								</div>
 							)}
 						</div>
 						<h1 className="text-4xl font-semibold">
