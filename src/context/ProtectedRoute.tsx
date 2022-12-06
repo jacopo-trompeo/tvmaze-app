@@ -13,6 +13,8 @@ const ProtectedRoute = ({ children, isAuth }: PropTypes) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		setLoading(true);
+
 		if (user && isAuth) {
 			navigate("/");
 		}
