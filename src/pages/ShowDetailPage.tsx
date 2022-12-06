@@ -18,6 +18,7 @@ import {
 } from "../firebase/realtimedb";
 import placeholderImageVertical from "../assets/placeholder-vertical.jpg";
 import CurrentlyWatching from "../components/CurrentlyWatching";
+import parse from "html-react-parser";
 
 const ShowDetailPage = () => {
 	const { user } = useAuth();
@@ -117,10 +118,9 @@ const ShowDetailPage = () => {
 						</p>
 
 						<p className="mt-10 text-justify lg:max-w-[60ch]">
-							{showDetails.summary?.replace(
-								/(<([^>]+)>)/gi,
-								""
-							) || "No description available"}
+							{showDetails.summary
+								? parse(showDetails.summary)
+								: "No description available"}
 						</p>
 
 						<Rating rating={showDetails.avgRating} />
