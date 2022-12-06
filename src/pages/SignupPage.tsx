@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
+import Loading from "../components/Loading";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ const LoginPage = () => {
 		}
 
 		try {
-			const user = await createUser(email, password);
+			await createUser(email, password);
 			navigate("/");
 		} catch (err: any) {
 			if (err.code === "auth/email-already-in-use") {
