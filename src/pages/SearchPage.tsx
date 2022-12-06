@@ -41,6 +41,11 @@ const SearchPage = () => {
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		if (searchQuery === searchQueryUrl.get("query")) {
+			return;
+		}
+
 		setShows([]);
 		setSearchQueryUrl({ query: searchQuery });
 	};
