@@ -5,6 +5,7 @@ import HeartIcon from "./icons/HeartIcon";
 import HeartOutlineIcon from "./icons/HeartOutlineIcon";
 import useIsFavorite from "../hooks/useIsFavorite";
 import { addToFavorites, removeFromFavorites } from "../firebase/realtimedb";
+import PlaceholderImage from "../assets/placeholder.webp";
 
 interface PropTypes {
 	show: ShowType;
@@ -18,7 +19,7 @@ const ShowCard = ({ show }: PropTypes) => {
 		<div className="card bg-base-300 shadow-xl image-full">
 			<figure className="max-h-[15rem]">
 				<img
-					src={show.image}
+					src={show.image || PlaceholderImage}
 					alt={show.title}
 					className="h-full w-full object-cover "
 				/>
