@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import CloseIcon from "../components/icons/CloseIcon";
 import GoogleIcon from "../components/icons/GoogleIcon";
+import ErrorAlert from "../components/ErrorAlert";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
@@ -55,15 +55,7 @@ const LoginPage = () => {
 
 			<div className="mt-8 w-full max-w-md mx-auto bg-neutral shadow-md rounded-lg py-10 px-6">
 				{error && (
-					<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium text-primary-content bg-error">
-						<p>{error}</p>
-						<button
-							className="ml-auto cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-primary-content"
-							onClick={() => setError("")}
-						>
-							<CloseIcon />
-						</button>
-					</div>
+					<ErrorAlert error={error} closeError={() => setError("")} />
 				)}
 
 				<form onSubmit={handleSubmit}>
