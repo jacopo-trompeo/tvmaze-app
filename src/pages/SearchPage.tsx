@@ -16,6 +16,7 @@ const SearchPage = () => {
 			setEmptyResult(false);
 
 			if (!searchQueryUrl.get("query")) {
+				setShows([]);
 				return;
 			}
 

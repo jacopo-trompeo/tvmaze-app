@@ -18,12 +18,12 @@ const Navbar = () => {
 	return (
 		<nav className="navbar bg-base-100 mb-10 p-3 sticky top-0 z-50">
 			<div className="flex-1">
-				<a
-					href={"/"}
+				<Link
+					to={"/"}
 					className="btn btn-ghost normal-case text-xl sm:text-2xl md:text-3xl font-bold"
 				>
 					<span className="text-accent">TVMaze</span> App
-				</a>
+				</Link>
 			</div>
 
 			<div className="dropdown dropdown-end">
