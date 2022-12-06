@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import { ShowType } from "../api";
-import { ref, remove, update } from "firebase/database";
 import { useAuth } from "../context/AuthContext";
-import { database } from "../firebase";
 import HeartIcon from "./icons/HeartIcon";
 import HeartOutlineIcon from "./icons/HeartOutlineIcon";
 import useIsFavorite from "../hooks/useIsFavorite";
-import { useEffect } from "react";
+import { addToFavorites, removeFromFavorites } from "../firebase/realtimedb";
 
 interface PropTypes {
 	show: ShowType;
@@ -15,16 +13,6 @@ interface PropTypes {
 const ShowCard = ({ show }: PropTypes) => {
 	const { user } = useAuth();
 	const isFavorite = useIsFavorite(show.id);
-
-	const addToFavorites = (showId: number) => {
-		update(ref(database, `users/${user?.uid}/favorites`), {
-			[showId]: showId,
-		});
-	};
-
-	const removeFromFavorites = (showId: number) => {
-		remove(ref(database, `users/${user?.uid}/favorites/${showId}`));
-	};
 
 	return (
 		<div className="card bg-base-300 shadow-xl image-full">
@@ -45,12 +33,12 @@ const ShowCard = ({ show }: PropTypes) => {
 					{isFavorite ? (
 						<button
 							className="text-accent"
-							onClick={() => removeFromFavorites(show.id)}
+							onClick={() => removeFromFavorites(show.id, user)}
 						>
 							<HeartIcon />
 						</button>
 					) : (
-						<button onClick={() => addToFavorites(show.id)}>
+						<button onClick={() => addToFavorites(show.id, user)}>
 							<HeartOutlineIcon />
 						</button>
 					)}

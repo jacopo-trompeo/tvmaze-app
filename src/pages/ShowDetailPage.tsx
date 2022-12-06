@@ -6,8 +6,11 @@ import HeartOutlineIcon from "../components/icons/HeartOutlineIcon";
 import HeartIcon from "../components/icons/HeartIcon";
 import Navbar from "../components/Navbar";
 import useIsFavorite from "../hooks/useIsFavorite";
+import { useAuth } from "../context/AuthContext";
+import { addToFavorites, removeFromFavorites } from "../firebase/realtimedb";
 
 const ShowDetailPage = () => {
+	const { user } = useAuth();
 	const { id } = useParams<{ id: string }>();
 	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
 	const isFavorite = useIsFavorite(id);
@@ -44,13 +47,28 @@ const ShowDetailPage = () => {
 							>
 								<BackIcon />
 							</button>
-							<button className="btn btn-circle text-accent">
-								{isFavorite ? (
+							{isFavorite ? (
+								<button
+									className="btn btn-circle text-accent"
+									onClick={() =>
+										removeFromFavorites(
+											showDetails.id,
+											user
+										)
+									}
+								>
 									<HeartIcon />
-								) : (
+								</button>
+							) : (
+								<button
+									className="btn btn-circle text-accent"
+									onClick={() =>
+										addToFavorites(showDetails.id, user)
+									}
+								>
 									<HeartOutlineIcon />
-								)}
-							</button>
+								</button>
+							)}
 						</div>
 						<h1 className="text-4xl font-semibold">
 							{showDetails.title}

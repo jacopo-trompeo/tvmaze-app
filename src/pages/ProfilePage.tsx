@@ -35,7 +35,7 @@ const useFavorites = () => {
 
 	useEffect(() => {
 		const favoritesRef = ref(database, `users/${user?.uid}/favorites`);
-		onValue(favoritesRef, snapshot => {
+		onValue(favoritesRef, (snapshot) => {
 			const data = snapshot.val();
 			const favorites: number[] = data ? Object.values(data) : [];
 			setFavorites(favorites);
@@ -51,7 +51,7 @@ const useShows = (showsIds: number[]) => {
 	useEffect(() => {
 		const fetchShows = async () => {
 			const showsRes = await Promise.all(
-				showsIds.map(id => getShowById(id))
+				showsIds.map((id) => getShowById(id))
 			);
 			setShows(showsRes);
 		};

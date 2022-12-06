@@ -59,7 +59,7 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	};
 
 	useEffect(() => {
-		onAuthStateChanged(auth, user => {
+		onAuthStateChanged(auth, (user) => {
 			setUser(user);
 		});
 	}, []);
