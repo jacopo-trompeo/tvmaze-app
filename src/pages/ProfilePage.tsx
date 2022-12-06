@@ -1,4 +1,4 @@
-import { onValue, ref } from "firebase/database";
+import { off, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { getShowById, ShowDetailType } from "../api";
 import { useAuth } from "../context/AuthContext";
@@ -39,6 +39,9 @@ const useFavorites = () => {
 			const data = snapshot.val();
 			const favorites: number[] = data ? Object.values(data) : [];
 			setFavorites(favorites);
+			/* If I don't close the connection, it removes the favorites
+      from the list immediatly. I want them to be removed on refresh */
+			off(favoritesRef);
 		});
 	}, [user]);
 
