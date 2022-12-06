@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
-import Loading from "../components/Loading";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
