@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleIcon from "../components/icons/GoogleIcon";
@@ -9,7 +9,13 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
-	const { logIn, logInWithGoogle } = useAuth();
+	const { logIn, logInWithGoogle, authError } = useAuth();
+
+	useEffect(() => {
+		if (authError) {
+			setError(authError);
+		}
+	}, [authError]);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -19,22 +25,18 @@ const LoginPage = () => {
 			return;
 		}
 
-		try {
-			await logIn(email, password);
+		await logIn(email, password);
+
+		if (!error) {
 			navigate("/");
-		} catch (err: any) {
-			if (err.code === "auth/user-not-found") {
-				setError("Incorrect credentials");
-			}
 		}
 	};
 
-	const handleGoogleLogin = async () => {
-		try {
-			logInWithGoogle();
+	const handleGoogleLogin = () => {
+		logInWithGoogle();
+
+		if (!error) {
 			navigate("/");
-		} catch (error: any) {
-			console.log(error);
 		}
 	};
 
@@ -70,7 +72,7 @@ const LoginPage = () => {
 							type="email"
 							id="email"
 							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={e => setEmail(e.target.value)}
 							className="input input-bordered w-full"
 						/>
 					</div>
@@ -85,7 +87,7 @@ const LoginPage = () => {
 							type="password"
 							id="password"
 							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={e => setPassword(e.target.value)}
 							className="input input-bordered w-full"
 						/>
 					</div>

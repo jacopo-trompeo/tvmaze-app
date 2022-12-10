@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
@@ -9,7 +9,13 @@ const LoginPage = () => {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
-	const { createUser } = useAuth();
+	const { createUser, authError } = useAuth();
+
+	useEffect(() => {
+		if (authError) {
+			setError(authError);
+		}
+	}, [authError]);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -24,13 +30,10 @@ const LoginPage = () => {
 			return;
 		}
 
-		try {
-			await createUser(email, password);
+		await createUser(email, password);
+
+		if (!error) {
 			navigate("/");
-		} catch (err: any) {
-			if (err.code === "auth/email-already-in-use") {
-				setError("Email already in use");
-			}
 		}
 	};
 
@@ -64,7 +67,7 @@ const LoginPage = () => {
 						</label>
 						<input
 							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={e => setEmail(e.target.value)}
 							type="email"
 							id="email"
 							className="input input-bordered w-full"
@@ -79,7 +82,7 @@ const LoginPage = () => {
 						</label>
 						<input
 							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={e => setPassword(e.target.value)}
 							type="password"
 							id="password"
 							className="input input-bordered w-full"
@@ -95,7 +98,7 @@ const LoginPage = () => {
 						</label>
 						<input
 							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
+							onChange={e => setConfirmPassword(e.target.value)}
 							type="password"
 							id="confirmPassword"
 							className="input input-bordered w-full"
