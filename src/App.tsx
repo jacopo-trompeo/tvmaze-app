@@ -11,46 +11,43 @@ import ProfilePage from "./pages/ProfilePage";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 
+type WrapperProps = {
+	children: JSX.Element;
+	isAuth: boolean;
+};
+
+const renderPage = (
+	Page: () => JSX.Element,
+	Wrapper: ({ children, isAuth }: WrapperProps) => JSX.Element,
+	isAuth: boolean
+) => {
+	return (
+		<Wrapper isAuth={isAuth}>
+			<Page />
+		</Wrapper>
+	);
+};
+
 const router = createBrowserRouter([
 	{
 		path: "/login",
-		element: (
-			<ProtectedRoute isAuth={true}>
-				<LoginPage />
-			</ProtectedRoute>
-		),
+		element: renderPage(LoginPage, ProtectedRoute, true),
 	},
 	{
 		path: "/signup",
-		element: (
-			<ProtectedRoute isAuth={true}>
-				<SignupPage />
-			</ProtectedRoute>
-		),
+		element: renderPage(SignupPage, ProtectedRoute, true),
 	},
 	{
 		path: "/",
-		element: (
-			<ProtectedRoute>
-				<SearchPage />
-			</ProtectedRoute>
-		),
+		element: renderPage(SearchPage, ProtectedRoute, false),
 	},
 	{
 		path: "/show/:id",
-		element: (
-			<ProtectedRoute>
-				<ShowDetailPage />
-			</ProtectedRoute>
-		),
+		element: renderPage(ShowDetailPage, ProtectedRoute, false),
 	},
 	{
 		path: "/profile",
-		element: (
-			<ProtectedRoute>
-				<ProfilePage />
-			</ProtectedRoute>
-		),
+		element: renderPage(ProfilePage, ProtectedRoute, false),
 	},
 	{
 		path: "*",
