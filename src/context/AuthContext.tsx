@@ -20,7 +20,7 @@ interface ContextTypes {
 	createUser: (email: string, password: string) => Promise<void>;
 	logIn: (email: string, password: string) => Promise<void>;
 	logInWithGoogle: () => void;
-	logOut: () => Promise<void>;
+	logOut: () => void;
 	authError: string;
 	resetAuthError: () => void;
 }
@@ -30,7 +30,7 @@ const UserContext = createContext<ContextTypes>({
 	createUser: async () => {},
 	logIn: async () => {},
 	logInWithGoogle: async () => {},
-	logOut: async () => {},
+	logOut: () => {},
 	authError: "",
 	resetAuthError: () => {},
 });
@@ -101,7 +101,7 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	};
 
 	const logOut = () => {
-		return signOut(auth);
+		signOut(auth);
 	};
 
 	useEffect(() => {
