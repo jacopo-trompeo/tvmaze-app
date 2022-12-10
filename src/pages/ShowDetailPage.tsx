@@ -29,9 +29,9 @@ const ShowDetailPage = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const showId = id ? parseInt(id) : null;
-		if (!showId) {
-			return;
+		let showId = id ? parseInt(id) : 0;
+		if (isNaN(showId)) {
+			showId = 0;
 		}
 
 		getShowById(showId).then((data: ShowDetailType) => {
