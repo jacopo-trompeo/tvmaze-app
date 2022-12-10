@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+	createBrowserRouter,
+	Navigate,
+	RouterProvider,
+} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import SearchPage from "./pages/SearchPage";
@@ -47,6 +51,10 @@ const router = createBrowserRouter([
 				<ProfilePage />
 			</ProtectedRoute>
 		),
+	},
+	{
+		path: "*",
+		element: <Navigate to="/" />,
 	},
 ]);
 
