@@ -29,10 +29,7 @@ const ShowDetailPage = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		let showId = id ? parseInt(id) : 0;
-		if (isNaN(showId)) {
-			showId = 0;
-		}
+		const showId = id && id.match(/^[0-9]+$/) ? parseInt(id) : 0;
 
 		getShowById(showId).then((data: ShowDetailType) => {
 			setShowDetails(data);
