@@ -13,29 +13,29 @@ const SearchPage = () => {
 	const [emptyResult, setEmptyResult] = useState(false);
 	const [loading, setLoading] = useState(false);
 
+	const getShows = async () => {
+		setEmptyResult(false);
+
+		if (!searchQueryUrl.get("query")) {
+			setShows([]);
+			return;
+		}
+
+		setLoading(true);
+
+		const shows = await getShowsBySearch(
+			searchQueryUrl.get("query") as string
+		);
+
+		if (shows.length === 0) {
+			setEmptyResult(true);
+		}
+
+		setShows(shows);
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		const getShows = async () => {
-			setEmptyResult(false);
-
-			if (!searchQueryUrl.get("query")) {
-				setShows([]);
-				return;
-			}
-
-			setLoading(true);
-
-			const shows = await getShowsBySearch(
-				searchQueryUrl.get("query") as string
-			);
-
-			if (shows.length === 0) {
-				setEmptyResult(true);
-			}
-
-			setShows(shows);
-			setLoading(false);
-		};
-
 		getShows();
 	}, [searchQueryUrl]);
 
@@ -65,7 +65,7 @@ const SearchPage = () => {
 							placeholder="Search by name..."
 							className="input input-bordered input-accent w-full"
 							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
+							onChange={e => setSearchQuery(e.target.value)}
 						/>
 						<button className="absolute right-5 top-3">
 							<SearchIcon />
