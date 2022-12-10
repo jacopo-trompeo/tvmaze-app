@@ -9,13 +9,14 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
-	const { logIn, logInWithGoogle, authError } = useAuth();
+	const { logIn, logInWithGoogle, authError, resetAuthError } = useAuth();
 
 	useEffect(() => {
 		if (authError) {
 			setError(authError);
+			resetAuthError();
 		}
-	}, [authError]);
+	}, []);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -27,6 +28,9 @@ const LoginPage = () => {
 
 		await logIn(email, password);
 
+		/* this works even if there was already an error displayed (like the one above)
+    because the loading component re-renders this page which resets all the states, 
+    so this error is only going to be populated if it's an auth error */
 		if (!error) {
 			navigate("/");
 		}

@@ -9,13 +9,14 @@ const LoginPage = () => {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
-	const { createUser, authError } = useAuth();
+	const { createUser, authError, resetAuthError } = useAuth();
 
 	useEffect(() => {
 		if (authError) {
 			setError(authError);
+			resetAuthError();
 		}
-	}, [authError]);
+	}, []);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

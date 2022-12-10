@@ -22,6 +22,7 @@ interface ContextTypes {
 	logInWithGoogle: () => void;
 	logOut: () => Promise<void>;
 	authError: string;
+	resetAuthError: () => void;
 }
 
 const UserContext = createContext<ContextTypes>({
@@ -31,6 +32,7 @@ const UserContext = createContext<ContextTypes>({
 	logInWithGoogle: async () => {},
 	logOut: async () => {},
 	authError: "",
+	resetAuthError: () => {},
 });
 
 export const AuthContextProvider = ({ children }: PropTypes) => {
@@ -54,6 +56,10 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 			default:
 				setAuthError("Something went wrong");
 		}
+	};
+
+	const resetAuthError = () => {
+		setAuthError("");
 	};
 
 	/* I'm setting the user to undefined everytime the user tries to 
@@ -114,6 +120,7 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 				logInWithGoogle,
 				logOut,
 				authError,
+				resetAuthError,
 			}}
 		>
 			{children}
