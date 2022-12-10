@@ -22,8 +22,8 @@ const LoginPage = () => {
 		try {
 			await logIn(email, password);
 			navigate("/");
-		} catch (error: any) {
-			if (error.code === "auth/user-not-found") {
+		} catch (err: any) {
+			if (err.code === "auth/user-not-found") {
 				setError("Incorrect credentials");
 			}
 		}

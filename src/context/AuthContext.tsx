@@ -16,6 +16,7 @@ interface PropTypes {
 }
 
 interface ContextTypes {
+	/* user has undefined type as well, which indicates that its loading the data */
 	user: User | undefined | null;
 	createUser: (email: string, password: string) => Promise<UserCredential>;
 	logIn: (email: string, password: string) => Promise<UserCredential>;
@@ -40,12 +41,15 @@ const UserContext = createContext<ContextTypes>({
 export const AuthContextProvider = ({ children }: PropTypes) => {
 	const [user, setUser] = useState<User | undefined | null>(undefined);
 
+	/* I'm setting the user to undefined everytime the user tries to 
+  log in or sign up so that the protected route component knows to render
+  the loading component while the user is being fetched from firebase */
 	const createUser = (email: string, password: string) => {
+		setUser(undefined);
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
 
 	const logIn = (email: string, password: string) => {
-		setUser(undefined);
 		return signInWithEmailAndPassword(auth, email, password);
 	};
 
@@ -59,8 +63,9 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	};
 
 	useEffect(() => {
-		onAuthStateChanged(auth, (user) => {
-			setUser(user);
+		onAuthStateChanged(auth, (currUser) => {
+			console.log(currUser);
+			setUser(currUser);
 		});
 	}, []);
 
