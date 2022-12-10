@@ -12,13 +12,17 @@ const useIsFavorite = (id?: string | number) => {
 			return;
 		}
 
-		onValue(
+		const unsubscribe = onValue(
 			ref(database, `users/${user.uid}/favorites/${id}`),
-			(snapshot) => {
+			snapshot => {
 				const data = snapshot.val();
 				setIsFavorite(!!data);
 			}
 		);
+
+		return () => {
+			unsubscribe();
+		};
 	}, [user]);
 
 	return isFavorite;
