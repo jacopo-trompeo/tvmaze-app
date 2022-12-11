@@ -9,8 +9,8 @@ import CurrentlyWatching from "../components/CurrentlyWatching";
 
 const ProfilePage = () => {
 	const { user } = useAuth();
-	const favoritesIds = useFavorites();
-	const favoriteShows = useShows(favoritesIds);
+	const favoritesIds = useFavoritesIds();
+	const favoriteShows = useFavoriteShows(favoritesIds);
 
 	return (
 		<>
@@ -32,13 +32,13 @@ const ProfilePage = () => {
 	);
 };
 
-const useFavorites = () => {
+const useFavoritesIds = () => {
 	const [favorites, setFavorites] = useState<number[]>([]);
 	const { user } = useAuth();
 
 	useEffect(() => {
 		const favoritesRef = ref(database, `users/${user?.uid}/favorites`);
-		onValue(favoritesRef, (snapshot) => {
+		onValue(favoritesRef, snapshot => {
 			const data = snapshot.val();
 			const favorites: number[] = data ? Object.values(data) : [];
 			setFavorites(favorites);
@@ -51,13 +51,13 @@ const useFavorites = () => {
 	return favorites;
 };
 
-const useShows = (showsIds: number[]) => {
+const useFavoriteShows = (showsIds: number[]) => {
 	const [shows, setShows] = useState<ShowDetailType[]>([]);
 
 	useEffect(() => {
 		const fetchShows = async () => {
 			const showsRes = await Promise.all(
-				showsIds.map((id) => getShowById(id))
+				showsIds.map(id => getShowById(id))
 			);
 			setShows(showsRes);
 		};
