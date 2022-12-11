@@ -21,20 +21,8 @@ import CurrentlyWatching from "../components/CurrentlyWatching";
 import parse from "html-react-parser";
 
 const ShowDetailPage = () => {
-	const { user } = useAuth();
 	const { id } = useParams<{ id: string }>();
-	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
-	const isFavorite = useIsFavorite(id);
-	const isWatching = useIsWatching(id);
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		const showId = id && id.match(/^[0-9]+$/) ? parseInt(id) : 0;
-
-		getShowById(showId).then((data: ShowDetailType) => {
-			setShowDetails(data);
-		});
-	}, [id]);
+	const showDetails = useShowDetails(id);
 
 	return (
 		<>
@@ -49,63 +37,8 @@ const ShowDetailPage = () => {
 						/>
 					</div>
 					<div className="flex flex-col justify-center">
-						<div className="flex items-center gap-5 mb-2">
-							<button
-								className="btn btn-circle "
-								onClick={() => navigate(-1)}
-							>
-								<BackIcon />
-							</button>
-							{isFavorite ? (
-								<button
-									className="btn btn-circle text-accent"
-									onClick={() =>
-										removeFromFavorites(
-											showDetails.id,
-											user
-										)
-									}
-								>
-									<HeartIcon />
-								</button>
-							) : (
-								<button
-									className="btn btn-circle text-accent"
-									onClick={() =>
-										addToFavorites(showDetails.id, user)
-									}
-								>
-									<HeartOutlineIcon />
-								</button>
-							)}
-							{!isWatching ? (
-								<div
-									className="tooltip"
-									data-tip="Add to watching"
-								>
-									<button
-										className="btn btn-circle"
-										onClick={() =>
-											addToWatching(showDetails.id, user)
-										}
-									>
-										<PlusIcon />
-									</button>
-								</div>
-							) : (
-								<div
-									className="tooltip"
-									data-tip="Remove from watching"
-								>
-									<button
-										className="btn btn-circle text-success"
-										onClick={() => removeFromWatching(user)}
-									>
-										<CheckIcon />
-									</button>
-								</div>
-							)}
-						</div>
+						<ShowDetailActions id={showDetails.id} />
+
 						<h1 className="text-4xl font-semibold">
 							{showDetails.title}
 						</h1>
@@ -140,6 +73,20 @@ const ShowDetailPage = () => {
 	);
 };
 
+const useShowDetails = (id?: string) => {
+	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
+
+	useEffect(() => {
+		const showId = id && id.match(/^[0-9]+$/) ? parseInt(id) : 0;
+
+		getShowById(showId).then((data: ShowDetailType) => {
+			setShowDetails(data);
+		});
+	}, [id]);
+
+	return showDetails;
+};
+
 const Rating = ({ rating }: { rating?: number }) => {
 	/* put rating to 0.5 if rating is 0 or undefined otherwise all
 	the stars will be filled, it needs at least half a star filled*/
@@ -171,6 +118,55 @@ const Rating = ({ rating }: { rating?: number }) => {
 					</React.Fragment>
 				))}
 			</div>
+		</div>
+	);
+};
+
+const ShowDetailActions = ({ id }: { id: number }) => {
+	const { user } = useAuth();
+	const isFavorite = useIsFavorite(id);
+	const isWatching = useIsWatching(id);
+	const navigate = useNavigate();
+
+	return (
+		<div className="flex items-center gap-5 mb-2">
+			<button className="btn btn-circle " onClick={() => navigate(-1)}>
+				<BackIcon />
+			</button>
+			{isFavorite ? (
+				<button
+					className="btn btn-circle text-accent"
+					onClick={() => removeFromFavorites(id, user)}
+				>
+					<HeartIcon />
+				</button>
+			) : (
+				<button
+					className="btn btn-circle text-accent"
+					onClick={() => addToFavorites(id, user)}
+				>
+					<HeartOutlineIcon />
+				</button>
+			)}
+			{!isWatching ? (
+				<div className="tooltip" data-tip="Add to watching">
+					<button
+						className="btn btn-circle"
+						onClick={() => addToWatching(id, user)}
+					>
+						<PlusIcon />
+					</button>
+				</div>
+			) : (
+				<div className="tooltip" data-tip="Remove from watching">
+					<button
+						className="btn btn-circle text-success"
+						onClick={() => removeFromWatching(user)}
+					>
+						<CheckIcon />
+					</button>
+				</div>
+			)}
 		</div>
 	);
 };
