@@ -31,10 +31,6 @@ const LoginPage = () => {
 		setLoading(false);
 	}
 
-	const handleGoogleLogin = () => {
-		logInWithGoogle();
-	}
-
 	return (
 		<main className="flex flex-col justify-center items-center h-screen px-10">
 			<h1 className="text-center text-4xl font-extrabold">
@@ -99,7 +95,7 @@ const LoginPage = () => {
 					<button
 						type="button"
 						className="flex justify-center items-center w-full py-3 px-4 btn btn-primary"
-						onClick={handleGoogleLogin}
+						onClick={() => logInWithGoogle()}
 					>
 						<GoogleIcon />
 						Sign in with Google
