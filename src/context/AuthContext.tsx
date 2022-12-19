@@ -15,8 +15,7 @@ interface PropTypes {
 }
 
 interface ContextTypes {
-	/* user has undefined type as well, which indicates that its loading the data */
-	user: User | undefined | null;
+	user: User | null;
 	createUser: (email: string, password: string) => Promise<void>;
 	logIn: (email: string, password: string) => Promise<void>;
 	logInWithGoogle: () => void;
@@ -24,7 +23,7 @@ interface ContextTypes {
 }
 
 const UserContext = createContext<ContextTypes>({
-	user: undefined,
+	user: null,
 	createUser: async () => {},
 	logIn: async () => {},
 	logInWithGoogle: async () => {},
@@ -32,8 +31,7 @@ const UserContext = createContext<ContextTypes>({
 });
 
 export const AuthContextProvider = ({ children }: PropTypes) => {
-	const [user, setUser] = useState<User | undefined | null>(undefined);
-	const [authError, setAuthError] = useState("");
+	const [user, setUser] = useState<User | null>(null);
 
 	const mapErrorMessage = (code: string) => {
 		const errorMessages: { [key: string]: string } = {
@@ -53,7 +51,7 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 		} catch (err: any) {
 			/* need to set the user to null, because onauthstatechanged doesn not trigger on error */
 			setUser(null);
-			mapErrorMessage(err.code);
+			throw mapErrorMessage(err.code);
 		}
 	};
 
@@ -83,7 +81,6 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, currUser => {
-			setAuthError("");
 			setUser(currUser);
 		});
 	}, []);

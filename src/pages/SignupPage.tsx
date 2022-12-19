@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
 
 const LoginPage = () => {
@@ -8,41 +8,40 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [error, setError] = useState("");
-	const navigate = useNavigate();
-	const { createUser, authError, resetAuthError } = useAuth();
-
-	useEffect(() => {
-		if (authError) {
-			setError(authError);
-			resetAuthError();
-		}
-	}, []);
+	const [loading, setLoading] = useState(false);
+	const { createUser } = useAuth();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setLoading(true);
 
 		if (!email || !password || !confirmPassword) {
 			setError("Please fill in all fields");
+			setLoading(false);
 			return;
 		}
 
 		if (password !== confirmPassword) {
 			setError("Passwords do not match");
+			setLoading(false);
 			return;
 		}
 
-		await createUser(email, password);
-
-		if (!error) {
-			navigate("/");
+		try {
+			setError("");
+			await createUser(email, password);
+		} catch (error: any) {
+			setError(error);
 		}
+
+		setLoading(false);
 	};
 
 	return (
 		<main className="flex flex-col justify-center items-center h-screen px-10">
-			<h2 className="text-center text-4xl font-extrabold">
+			<h1 className="text-center text-4xl font-extrabold">
 				Sign up to TVMaze App
-			</h2>
+			</h1>
 			<p className="mt-4 mb-8 text-center text-sm">
 				Already have an account?{" "}
 				<Link
@@ -108,7 +107,7 @@ const LoginPage = () => {
 
 					<button
 						type="submit"
-						className="mt-5 w-full btn btn-primary"
+						className={`mt-5 w-full btn btn-primary ${loading && "loading"}`}
 					>
 						Sign up
 					</button>
