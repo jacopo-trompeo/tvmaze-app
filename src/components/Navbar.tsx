@@ -6,12 +6,8 @@ const Navbar = () => {
 	const navigate = useNavigate();
 
 	const handleLogOut = () => {
-		try {
-			logOut();
-			navigate("/login");
-		} catch (error) {
-			console.error(error);
-		}
+		logOut();
+		navigate("/login");
 	};
 
 	return (
@@ -19,7 +15,7 @@ const Navbar = () => {
 			<div className="flex-1">
 				<Link
 					to={"/"}
-					className="btn btn-ghost normal-case text-xl sm:text-2xl md:text-4xl font-bold"
+					className="normal-case text-xl sm:text-2xl md:text-4xl font-bold"
 				>
 					<span className="text-accent">TVMaze</span> App
 				</Link>
