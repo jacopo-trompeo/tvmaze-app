@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GoogleIcon from "../components/icons/GoogleIcon";
 import ErrorAlert from "../components/ErrorAlert";
 
@@ -8,47 +8,38 @@ const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
-	const navigate = useNavigate();
-	const { logIn, logInWithGoogle, authError, resetAuthError } = useAuth();
-
-	useEffect(() => {
-		if (authError) {
-			setError(authError);
-			resetAuthError();
-		}
-	}, []);
+	const [loading, setLoading] = useState(false);
+	const { logIn, logInWithGoogle } = useAuth();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setLoading(true);
 
-		if (!email || !password) {
+		if(!email || !password) {
 			setError("Please fill in all fields");
+			setLoading(false);
 			return;
 		}
 
-		await logIn(email, password);
-
-		/* this works even if there was already an error displayed (like the one above)
-    because the loading component re-renders this page which resets all the states, 
-    so this error is only going to be populated if it's an auth error */
-		if (!error) {
-			navigate("/");
+		try {
+			setError("");
+			await logIn(email, password);
+		} catch (error: any) {
+			setError(error);
 		}
-	};
+
+		setLoading(false);
+	}
 
 	const handleGoogleLogin = () => {
 		logInWithGoogle();
-
-		if (!error) {
-			navigate("/");
-		}
-	};
+	}
 
 	return (
 		<main className="flex flex-col justify-center items-center h-screen px-10">
-			<h2 className="text-center text-4xl font-extrabold">
+			<h1 className="text-center text-4xl font-extrabold">
 				Sign in to TVMaze App
-			</h2>
+			</h1>
 			<p className="mt-4 text-center text-sm">
 				Don't have an account?{" "}
 				<Link
@@ -98,7 +89,7 @@ const LoginPage = () => {
 
 					<button
 						type="submit"
-						className="mt-5 w-full btn btn-primary"
+						className={`mt-5 w-full btn btn-primary ${loading && "loading"}`}
 					>
 						Log In
 					</button>

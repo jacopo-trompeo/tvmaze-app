@@ -21,8 +21,6 @@ interface ContextTypes {
 	logIn: (email: string, password: string) => Promise<void>;
 	logInWithGoogle: () => void;
 	logOut: () => void;
-	authError: string;
-	resetAuthError: () => void;
 }
 
 const UserContext = createContext<ContextTypes>({
@@ -31,72 +29,51 @@ const UserContext = createContext<ContextTypes>({
 	logIn: async () => {},
 	logInWithGoogle: async () => {},
 	logOut: () => {},
-	authError: "",
-	resetAuthError: () => {},
 });
 
 export const AuthContextProvider = ({ children }: PropTypes) => {
 	const [user, setUser] = useState<User | undefined | null>(undefined);
 	const [authError, setAuthError] = useState("");
 
-	const updateErrorMessage = (code: string) => {
-		switch (code) {
-			case "auth/wrong-password":
-				setAuthError("Wrong password");
-				break;
-			case "auth/user-not-found":
-				setAuthError("User not found");
-				break;
-			case "auth/too-many-requests":
-				setAuthError("Too many requests");
-				break;
-			case "auth/email-already-in-use":
-				setAuthError("Email already in use");
-				break;
-			default:
-				setAuthError("Something went wrong");
-		}
+	const mapErrorMessage = (code: string) => {
+		const errorMessages: { [key: string]: string } = {
+			"auth/wrong-password": "Wrong password",
+			"auth/user-not-found": "User not found",
+			"auth/too-many-requests": "Too many requests",
+			"auth/email-already-in-use": "Email already in use",
+			"auth/popup-closed-by-user": "Popup closed by user",
+		};
+
+		return errorMessages[code] || "Something went wrong";
 	};
 
-	const resetAuthError = () => {
-		setAuthError("");
-	};
-
-	/* I'm setting the user to undefined everytime the user tries to 
-  log in or sign up so that the protected route component knows to render
-  the loading component while the user is being fetched from firebase */
 	const createUser = async (email: string, password: string) => {
-		setUser(undefined);
-
 		try {
 			await createUserWithEmailAndPassword(auth, email, password);
 		} catch (err: any) {
 			/* need to set the user to null, because onauthstatechanged doesn not trigger on error */
 			setUser(null);
-			updateErrorMessage(err.code);
+			mapErrorMessage(err.code);
 		}
 	};
 
 	const logIn = async (email: string, password: string) => {
-		setUser(undefined);
-
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
 		} catch (err: any) {
 			setUser(null);
-			updateErrorMessage(err.code);
+			throw mapErrorMessage(err.code);
 		}
 	};
 
 	const logInWithGoogle = () => {
 		const provider = new GoogleAuthProvider();
-		setUser(undefined);
 
 		try {
 			signInWithPopup(auth, provider);
 		} catch (err: any) {
 			setUser(null);
-			updateErrorMessage(err.code);
+			throw mapErrorMessage(err.code);
 		}
 	};
 
@@ -119,8 +96,6 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 				logIn,
 				logInWithGoogle,
 				logOut,
-				authError,
-				resetAuthError,
 			}}
 		>
 			{children}
