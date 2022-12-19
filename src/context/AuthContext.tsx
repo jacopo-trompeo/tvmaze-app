@@ -15,7 +15,8 @@ interface PropTypes {
 }
 
 interface ContextTypes {
-	user: User | null;
+	/* undefined means that it's still loading -> neither defined nor null */
+	user: User | null | undefined;
 	createUser: (email: string, password: string) => Promise<void>;
 	logIn: (email: string, password: string) => Promise<void>;
 	logInWithGoogle: () => void;
@@ -31,7 +32,7 @@ const UserContext = createContext<ContextTypes>({
 });
 
 export const AuthContextProvider = ({ children }: PropTypes) => {
-	const [user, setUser] = useState<User | null>(null);
+	const [user, setUser] = useState<User | null | undefined>(undefined);
 
 	const mapErrorMessage = (code: string) => {
 		const errorMessages: { [key: string]: string } = {
@@ -80,9 +81,13 @@ export const AuthContextProvider = ({ children }: PropTypes) => {
 	};
 
 	useEffect(() => {
-		onAuthStateChanged(auth, currUser => {
+		const unsubscribe = onAuthStateChanged(auth, currUser => {
 			setUser(currUser);
 		});
+
+		return () => {
+			unsubscribe();
+		}
 	}, []);
 
 	return (
