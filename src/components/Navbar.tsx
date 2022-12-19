@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import avatarImage from "../assets/avatar.jpg";
 
 const Navbar = () => {
-	const { logOut } = useAuth();
+	const { logOut, user } = useAuth();
 	const navigate = useNavigate();
 
 	const handleLogOut = () => {
@@ -32,7 +31,7 @@ const Navbar = () => {
 					className="btn btn-ghost md:btn-lg btn-circle avatar"
 				>
 					<div className="w-20 rounded-full">
-						<img src={avatarImage} />
+						<img src={`https://avatars.dicebear.com/api/initials/${user?.email}.svg`} />
 					</div>
 				</label>
 				<ul
