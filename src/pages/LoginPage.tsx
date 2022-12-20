@@ -49,7 +49,7 @@ const LoginPage = () => {
 				</Link>
 			</p>
 
-			<div className="mt-8 w-full max-w-md mx-auto bg-neutral shadow-md rounded-lg py-10 px-6">
+			<div className="mt-8 w-full max-w-md mx-auto bg-neutral shadow-md rounded-lg py-10 px-6 | auth-form">
 				{error && <ErrorAlert error={error} closeError={() => setError("")} />}
 
 				<form onSubmit={handleSubmit}>

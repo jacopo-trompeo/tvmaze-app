@@ -9,3 +9,7 @@
     margin-bottom: 8rem;
   }
 }
+
+[data-theme="light"] .auth-form {
+  @apply bg-base-300;
+}
