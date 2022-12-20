@@ -21,14 +21,17 @@ const ShowCard = ({ show }: PropTypes) => {
 				<img
 					src={show.image || placeholderImage}
 					alt={show.title}
-					className="h-full w-full object-cover "
+					className="h-full w-full object-cover"
 				/>
 			</figure>
 			<div className="card-body">
 				<h2 className="card-title text-2xl">{show.title}</h2>
 
 				<div className="card-actions justify-end items-center gap-5 mt-auto">
-					<Link to={`/show/${show.id}`} className="btn btn-outline">
+					<Link
+						to={`/show/${show.id}`}
+						className="btn btn-outline text-neutral-content"
+					>
 						Go to details{" "}
 					</Link>
 					{isFavorite ? (
