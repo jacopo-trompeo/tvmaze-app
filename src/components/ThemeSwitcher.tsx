@@ -2,11 +2,16 @@ import { useEffect } from "react";
 import { themeChange } from "theme-change";
 
 interface PropTypes {
-  darkTheme: string;
-  lightTheme: string;
+  darkTheme?: string;
+  lightTheme?: string;
+  className?: string;
 }
 
-const ThemeSwitcher = ({ darkTheme, lightTheme }: PropTypes) => {
+const ThemeSwitcher = ({
+  darkTheme = "night",
+  lightTheme = "light",
+  className,
+}: PropTypes) => {
   const theme = localStorage.getItem("theme");
 
   useEffect(() => {
@@ -14,7 +19,7 @@ const ThemeSwitcher = ({ darkTheme, lightTheme }: PropTypes) => {
   }, []);
 
   return (
-    <label className="swap swap-rotate">
+    <label className={`swap swap-rotate ${className}`}>
       <input type="checkbox" data-toggle-theme={`${darkTheme},${lightTheme}`} />
 
       <svg

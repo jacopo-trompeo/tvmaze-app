@@ -16,9 +16,7 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="mx-10">
-        <ThemeSwitcher darkTheme="night" lightTheme="light" />
-      </div>
+      <ThemeSwitcher className="mx-10" />
 
       <div className="dropdown dropdown-end">
         <label
