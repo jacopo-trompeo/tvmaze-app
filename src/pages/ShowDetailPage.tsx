@@ -37,14 +37,11 @@ const ShowDetailPage = () => {
 						/>
 					</div>
 					<div className="flex flex-col justify-center">
-						<ShowDetailActions id={showDetails.id} />
+						<ShowDetailActions showId={showDetails.id} />
 
-						<h1 className="text-4xl font-semibold">
-							{showDetails.title}
-						</h1>
+						<h1 className="text-4xl font-semibold">{showDetails.title}</h1>
 						<p className="mt-2 text-sm">
-							{showDetails.startDate || "N/A"} -{" "}
-							{showDetails.endDate || "N/A"}
+							{showDetails.startDate || "N/A"} - {showDetails.endDate || "N/A"}
 						</p>
 
 						<span className="mt-10 text-justify lg:max-w-[60ch]">
@@ -122,10 +119,10 @@ const Rating = ({ rating }: { rating?: number }) => {
 	);
 };
 
-const ShowDetailActions = ({ id }: { id: number }) => {
+const ShowDetailActions = ({ showId }: { showId: number }) => {
 	const { user } = useAuth();
-	const isFavorite = useIsFavorite(id);
-	const isWatching = useIsWatching(id);
+	const isFavorite = useIsFavorite(showId);
+	const isWatching = useIsWatching(showId);
 	const navigate = useNavigate();
 
 	return (
@@ -136,14 +133,14 @@ const ShowDetailActions = ({ id }: { id: number }) => {
 			{isFavorite ? (
 				<button
 					className="btn btn-circle text-accent"
-					onClick={() => removeFromFavorites(id, user)}
+					onClick={() => removeFromFavorites(showId, user)}
 				>
 					<HeartIcon />
 				</button>
 			) : (
 				<button
 					className="btn btn-circle text-accent"
-					onClick={() => addToFavorites(id, user)}
+					onClick={() => addToFavorites(showId, user)}
 				>
 					<HeartOutlineIcon />
 				</button>
@@ -152,7 +149,7 @@ const ShowDetailActions = ({ id }: { id: number }) => {
 				<div className="tooltip" data-tip="Add to watching">
 					<button
 						className="btn btn-circle"
-						onClick={() => addToWatching(id, user)}
+						onClick={() => addToWatching(showId, user)}
 					>
 						<PlusIcon />
 					</button>
