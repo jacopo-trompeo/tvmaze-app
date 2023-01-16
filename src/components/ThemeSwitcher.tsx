@@ -12,7 +12,7 @@ const ThemeSwitcher = ({
 	className,
 }: PropTypes) => {
 	// this library (recommended by daisyui) saves the theme also in localStorage
-	const theme = localStorage.getItem("theme");
+	const theme = localStorage.getItem("theme") || darkTheme;
 
 	useEffect(() => {
 		themeChange(false);
