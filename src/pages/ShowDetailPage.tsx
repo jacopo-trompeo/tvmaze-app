@@ -16,7 +16,7 @@ import {
 	addToWatching,
 	removeFromWatching,
 } from "../firebase/realtimedb";
-import placeholderImageVertical from "../assets/placeholder-vertical.jpg";
+import placeholderImageVertical from "../assets/placeholder-vertical.webp";
 import CurrentlyWatching from "../components/CurrentlyWatching";
 import parse from "html-react-parser";
 
