@@ -9,16 +9,18 @@ import CurrentlyWatching from "../components/CurrentlyWatching";
 
 const ProfilePage = () => {
 	const { user } = useAuth();
-	const favoritesIds = useFavoritesIds();
+	const favoritesIds = useFavoritesIds(user?.uid);
 	const favoriteShows = useFavoriteShows(favoritesIds);
 
 	return (
 		<>
 			<Navbar />
 			<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
-				<h1 className="text-center font-bold text-3xl sm:text-4xl">
+				<h1 className="text-center font-bold text-3xl sm:text-4xl flex flex-col sm:block">
 					<span className="font-semibold">Welcome</span>{" "}
-					<span className="text-accent">{user?.email}</span>
+					<span className="text-accent text-[1.5rem] sm:text-3xl md:text-4xl">
+						{user?.email}
+					</span>
 				</h1>
 
 				<h2 className="text-center font-bold text-2xl sm:text-3xl mt-10">
@@ -32,39 +34,36 @@ const ProfilePage = () => {
 	);
 };
 
-const useFavoritesIds = () => {
-	const [favorites, setFavorites] = useState<number[]>([]);
-	const { user } = useAuth();
+const useFavoritesIds = (userId?: string) => {
+	const [favoritesIds, setFavoritesIds] = useState<number[]>([]);
 
 	useEffect(() => {
-		const favoritesRef = ref(database, `users/${user?.uid}/favorites`);
-		onValue(favoritesRef, snapshot => {
+		const favoritesRef = ref(database, `users/${userId}/favorites`);
+		onValue(favoritesRef, (snapshot) => {
 			const data = snapshot.val();
 			const favorites: number[] = data ? Object.values(data) : [];
-			setFavorites(favorites);
+			setFavoritesIds(favorites);
 			/* If I don't close the connection, it removes the favorites
       from the list immediatly. I want them to be removed on refresh */
 			off(favoritesRef);
 		});
-	}, [user]);
+	}, [userId]);
 
-	return favorites;
+	return favoritesIds;
 };
 
 const useFavoriteShows = (showsIds: number[]) => {
-	const [shows, setShows] = useState<ShowDetailType[]>([]);
+	const [favoriteShows, setFavoriteShows] = useState<ShowDetailType[]>([]);
 
 	useEffect(() => {
 		const fetchShows = async () => {
-			const showsRes = await Promise.all(
-				showsIds.map(id => getShowById(id))
-			);
-			setShows(showsRes);
+			const showsRes = await Promise.all(showsIds.map((id) => getShowById(id)));
+			setFavoriteShows(showsRes);
 		};
 		fetchShows();
 	}, [showsIds]);
 
-	return shows;
+	return favoriteShows;
 };
 
 export default ProfilePage;
