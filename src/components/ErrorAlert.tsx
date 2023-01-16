@@ -10,7 +10,7 @@ const ErrorAlert = ({ error, closeError }: PropTypes) => {
 		<div className="flex mb-5 w-full py-2 px-4 rounded-md text-sm font-medium bg-error">
 			<p>{error}</p>
 			<button
-				className="ml-auto cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-primary-content"
+				className="ml-auto cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-base-content"
 				onClick={closeError}
 			>
 				<CloseIcon />
