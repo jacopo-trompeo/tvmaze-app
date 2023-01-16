@@ -15,8 +15,8 @@ export const removeFromFavorites = (showId: number, user: UserType) => {
 };
 
 export const addToWatching = (showId: number, user: UserType) => {
-	set(ref(database, `users/${user?.uid}/watching`), {
-		showId,
+	set(ref(database, `users/${user?.uid}`), {
+		watching: showId,
 	});
 };
 

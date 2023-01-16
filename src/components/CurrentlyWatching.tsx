@@ -33,9 +33,7 @@ const CurrentlyWatching = () => {
 				<div className="flex flex-col items-start md:p-5">
 					<div className="flex gap-2 items-center">
 						<TVIcon />
-						<span className="text-xl md:text-2xl">
-							Now watching
-						</span>
+						<span className="text-xl md:text-2xl">Now watching</span>
 					</div>
 					{currentlyWatchingShow && (
 						<span className="text-2xl text-center md:text-left w-full md:text-3xl font-medium">
@@ -53,13 +51,10 @@ const useCurrentlyWatching = () => {
 	const { user } = useAuth();
 
 	useEffect(() => {
-		const currentlyWatchingRef = ref(
-			database,
-			`users/${user?.uid}/watching`
-		);
+		const currentlyWatchingRef = ref(database, `users/${user?.uid}/watching/`);
 		onValue(currentlyWatchingRef, (snapshot) => {
 			const data = snapshot.val();
-			setCurrentlyWatching(data ? data.showId : null);
+			setCurrentlyWatching(data ?? null);
 		});
 	}, [user]);
 
