@@ -9,9 +9,10 @@ import placeholderImage from "../assets/placeholder.webp";
 
 interface PropTypes {
 	show: ShowType;
+	peopleWatching?: number;
 }
 
-const ShowCard = ({ show }: PropTypes) => {
+const ShowCard = ({ show, peopleWatching }: PropTypes) => {
 	const { user } = useAuth();
 	const isFavorite = useIsFavorite(show.id);
 
@@ -25,7 +26,14 @@ const ShowCard = ({ show }: PropTypes) => {
 				/>
 			</figure>
 			<div className="card-body">
-				<h2 className="card-title text-2xl">{show.title}</h2>
+				<div className="flex justify-between">
+					<h2 className="card-title text-2xl">{show.title}</h2>
+					{peopleWatching && (
+						<span className="text-sm font-medium">
+							{peopleWatching} people watching
+						</span>
+					)}
+				</div>
 
 				<div className="card-actions justify-end items-center gap-5 mt-auto">
 					<Link
