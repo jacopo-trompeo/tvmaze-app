@@ -1,23 +1,30 @@
 import { database } from "../firebase";
+import { onValue, ref } from "firebase/database";
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { onValue, ref } from "firebase/database";
+import CurrentlyWatching from "../components/CurrentlyWatching";
+import useShows from "../hooks/useShows";
 
 const RankingPage = () => {
-	const showsRanking = useShowsRanking();
+	const showsRankingIds = useShowsRankingIds();
+	const shows = useShows(showsRankingIds);
 
 	return (
 		<>
 			<Navbar />
 			<main>
-				<h1>Ranking Page</h1>
+				<h1 className="text-center font-bold text-3xl sm:text-4xl">
+					The most watched shows
+				</h1>
+
+				<CurrentlyWatching />
 			</main>
 		</>
 	);
 };
 
-const useShowsRanking = () => {
-	const [showsRanking, setShowsRanking] = useState<number[]>([]);
+const useShowsRankingIds = () => {
+	const [showsRankingIds, setShowsRankingIds] = useState<number[]>([]);
 
 	useEffect(() => {
 		const watchingRef = ref(database, `users`);
@@ -25,7 +32,7 @@ const useShowsRanking = () => {
 			const ranking: { [key: string]: number } = {};
 
 			snapshot.forEach((childSnapshot) => {
-				const watching = childSnapshot.val().watching?.showId;
+				const watching = childSnapshot.val().watching;
 
 				if (watching && !ranking[watching]) {
 					ranking[watching] = 0;
@@ -36,7 +43,11 @@ const useShowsRanking = () => {
 				}
 			});
 
-			console.log(ranking);
+			setShowsRankingIds(
+				Object.entries(ranking)
+					.sort((a, b) => b[1] - a[1])
+					.map(([key]) => parseInt(key))
+			);
 		});
 
 		return () => {
@@ -44,7 +55,7 @@ const useShowsRanking = () => {
 		};
 	}, []);
 
-	return showsRanking;
+	return showsRankingIds;
 };
 
 export default RankingPage;
