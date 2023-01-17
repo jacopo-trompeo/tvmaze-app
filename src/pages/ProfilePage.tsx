@@ -1,16 +1,16 @@
 import { off, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
-import { getShowById, ShowDetailType } from "../api";
 import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
 import Navbar from "../components/Navbar";
 import ShowsList from "../components/ShowsList";
 import CurrentlyWatching from "../components/CurrentlyWatching";
+import useShows from "../hooks/useShows";
 
 const ProfilePage = () => {
 	const { user } = useAuth();
 	const favoritesIds = useFavoritesIds(user?.uid);
-	const favoriteShows = useFavoriteShows(favoritesIds);
+	const favoriteShows = useShows(favoritesIds);
 
 	return (
 		<>
@@ -50,20 +50,6 @@ const useFavoritesIds = (userId?: string) => {
 	}, [userId]);
 
 	return favoritesIds;
-};
-
-const useFavoriteShows = (showsIds: number[]) => {
-	const [favoriteShows, setFavoriteShows] = useState<ShowDetailType[]>([]);
-
-	useEffect(() => {
-		const fetchShows = async () => {
-			const showsRes = await Promise.all(showsIds.map((id) => getShowById(id)));
-			setFavoriteShows(showsRes);
-		};
-		fetchShows();
-	}, [showsIds]);
-
-	return favoriteShows;
 };
 
 export default ProfilePage;
