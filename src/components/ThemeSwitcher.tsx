@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { themeChange } from "theme-change";
 
-interface PropTypes extends React.HTMLAttributes<HTMLLabelElement> {
+interface PropTypes {
 	darkTheme?: string;
 	lightTheme?: string;
 }
@@ -9,7 +9,6 @@ interface PropTypes extends React.HTMLAttributes<HTMLLabelElement> {
 const ThemeSwitcher = ({
 	darkTheme = "night",
 	lightTheme = "light",
-	className,
 }: PropTypes) => {
 	// this library (recommended by daisyui) saves the theme also in localStorage
 	const theme = localStorage.getItem("theme") || darkTheme;
@@ -19,7 +18,7 @@ const ThemeSwitcher = ({
 	}, []);
 
 	return (
-		<label className={`swap swap-rotate ${className}`}>
+		<label className="swap swap-rotate">
 			<input type="checkbox" data-toggle-theme={`${darkTheme},${lightTheme}`} />
 
 			<svg

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ThemeSwitcher from "./ThemeSwitcher";
+import StatsIcon from "./icons/StatsIcon";
 
 const Navbar = () => {
 	const { logOut, user } = useAuth();
@@ -16,7 +17,20 @@ const Navbar = () => {
 				</Link>
 			</div>
 
-			<ThemeSwitcher className="mx-10" />
+			<ThemeSwitcher />
+
+			<ul className="menu menu-horizontal">
+				<li className="sm:block hidden">
+					<Link className="btn rounded-full mx-5 font-bold" to={"/ranking"}>
+						Rankings
+					</Link>
+				</li>
+				<li className="sm:hidden">
+					<Link className="mx-3 rounded-full" to={"/ranking"}>
+						<StatsIcon />
+					</Link>
+				</li>
+			</ul>
 
 			<div className="dropdown dropdown-end">
 				<label
@@ -33,9 +47,6 @@ const Navbar = () => {
 					tabIndex={0}
 					className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 ring-1 ring-accent"
 				>
-					<li>
-						<Link to={"/ranking"}>Ranking</Link>
-					</li>
 					<li>
 						<Link to={"/profile"}>Profile</Link>
 					</li>
