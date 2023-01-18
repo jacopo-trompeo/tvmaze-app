@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ShowDetailType, getShowById } from "../api";
+import useShow from "../hooks/useShow";
 import BackIcon from "../components/icons/BackIcon";
 import HeartOutlineIcon from "../components/icons/HeartOutlineIcon";
 import HeartIcon from "../components/icons/HeartIcon";
@@ -21,7 +21,7 @@ import parse from "html-react-parser";
 
 const ShowDetailPage = () => {
 	const { id } = useParams<{ id: string }>();
-	const showDetails = useShowDetails(id);
+	const showDetails = useShow(id);
 
 	return (
 		<main className="max-w-md px-5 pb-10 pt-5 md:pt-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
@@ -60,22 +60,6 @@ const ShowDetailPage = () => {
 			<CurrentlyWatching />
 		</main>
 	);
-};
-
-const useShowDetails = (id?: string) => {
-	const [showDetails, setShowDetails] = useState<ShowDetailType>(
-		{} as ShowDetailType
-	);
-
-	useEffect(() => {
-		const showId = id && id.match(/^[0-9]+$/) ? parseInt(id) : 0;
-
-		getShowById(showId).then((data: ShowDetailType) => {
-			setShowDetails(data);
-		});
-	}, [id]);
-
-	return showDetails;
 };
 
 const Rating = ({ rating }: { rating?: number }) => {

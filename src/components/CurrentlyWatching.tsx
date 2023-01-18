@@ -2,16 +2,16 @@ import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
-import { getShowById, ShowDetailType } from "../api";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import useShow from "../hooks/useShow";
 import TVIcon from "./icons/TVIcon";
 import CloseIcon from "./icons/CloseIcon";
 import ChevronUpIcon from "./icons/ChevronUpIcon";
 
 const CurrentlyWatching = () => {
 	const currentlyWatchingId = useCurrentlyWatchingId();
-	const currentlyWatchingShow = useCurrentlyWatchingShow(currentlyWatchingId);
+	const currentlyWatchingShow = useShow(currentlyWatchingId?.toString());
 	const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 	const [isMinimized, setIsMinimized] = useState(true);
 
@@ -57,9 +57,7 @@ const CurrentlyWatching = () => {
 };
 
 const useCurrentlyWatchingId = () => {
-	const [currentlyWatchingId, setCurrentlyWatchingId] = useState<
-		number | null
-	>();
+	const [currentlyWatchingId, setCurrentlyWatchingId] = useState<number>();
 	const { user } = useAuth();
 
 	useEffect(() => {
@@ -71,26 +69,6 @@ const useCurrentlyWatchingId = () => {
 	}, [user]);
 
 	return currentlyWatchingId;
-};
-
-const useCurrentlyWatchingShow = (id?: number | null) => {
-	const [currentlyWatchingShow, setCurrentlyWatchingShow] =
-		useState<ShowDetailType | null>();
-
-	useEffect(() => {
-		const getShow = async () => {
-			if (!id) {
-				return;
-			}
-
-			const show = await getShowById(id);
-			setCurrentlyWatchingShow(show);
-		};
-
-		getShow();
-	}, [id]);
-
-	return currentlyWatchingShow;
 };
 
 export default CurrentlyWatching;
