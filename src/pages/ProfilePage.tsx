@@ -2,7 +2,6 @@ import { off, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
-import Navbar from "../components/Navbar";
 import ShowsList from "../components/ShowsList";
 import CurrentlyWatching from "../components/CurrentlyWatching";
 import useShows from "../hooks/useShows";
@@ -13,24 +12,21 @@ const ProfilePage = () => {
 	const favoriteShows = useShows(favoritesIds);
 
 	return (
-		<>
-			<Navbar />
-			<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
-				<h1 className="text-center font-bold text-3xl sm:text-4xl flex flex-col sm:block">
-					<span className="font-semibold">Welcome</span>{" "}
-					<span className="text-accent text-[1.5rem] sm:text-3xl md:text-4xl">
-						{user?.email}
-					</span>
-				</h1>
+		<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
+			<h1 className="text-center font-bold text-3xl sm:text-4xl flex flex-col sm:block">
+				<span className="font-semibold">Welcome</span>{" "}
+				<span className="text-accent text-[1.5rem] sm:text-3xl md:text-4xl">
+					{user?.email}
+				</span>
+			</h1>
 
-				<h2 className="text-center font-bold text-2xl sm:text-3xl mt-10">
-					Your favorite shows
-				</h2>
-				<ShowsList shows={favoriteShows} />
+			<h2 className="text-center font-bold text-2xl sm:text-3xl mt-10">
+				Your favorite shows
+			</h2>
+			<ShowsList shows={favoriteShows} />
 
-				<CurrentlyWatching />
-			</main>
-		</>
+			<CurrentlyWatching />
+		</main>
 	);
 };
 

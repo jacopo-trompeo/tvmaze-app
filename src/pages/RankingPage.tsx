@@ -1,7 +1,7 @@
 import { database } from "../firebase";
 import { onValue, ref } from "firebase/database";
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
+
 import ShowCard from "../components/ShowCard";
 import CurrentlyWatching from "../components/CurrentlyWatching";
 import useShows from "../hooks/useShows";
@@ -12,26 +12,23 @@ const RankingPage = () => {
 	const shows = useShows(showIds);
 
 	return (
-		<>
-			<Navbar />
-			<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
-				<h1 className="text-center font-bold text-3xl sm:text-4xl">
-					The most watched shows
-				</h1>
+		<main className="max-w-md px-5 sm:px-0 sm:container mx-auto">
+			<h1 className="text-center font-bold text-3xl sm:text-4xl">
+				The most watched shows
+			</h1>
 
-				<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 my-8">
-					{shows.map((show, i) => (
-						<ShowCard
-							key={i}
-							show={show}
-							peopleWatching={showsRankings[show.id]}
-						/>
-					))}
-				</div>
+			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 my-8">
+				{shows.map((show, i) => (
+					<ShowCard
+						key={i}
+						show={show}
+						peopleWatching={showsRankings[show.id]}
+					/>
+				))}
+			</div>
 
-				<CurrentlyWatching />
-			</main>
-		</>
+			<CurrentlyWatching />
+		</main>
 	);
 };
 

@@ -9,6 +9,7 @@ import SearchPage from "./pages/SearchPage";
 import ShowDetailPage from "./pages/ShowDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import RankingPage from "./pages/RankingPage";
+import Navbar from "./components/Navbar";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 
@@ -24,7 +25,10 @@ const renderPage = (
 ) => {
 	return (
 		<Wrapper isAuth={isAuth}>
-			<Page />
+			<>
+				{!isAuth && <Navbar />}
+				<Page />
+			</>
 		</Wrapper>
 	);
 };

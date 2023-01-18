@@ -6,7 +6,6 @@ import HeartOutlineIcon from "../components/icons/HeartOutlineIcon";
 import HeartIcon from "../components/icons/HeartIcon";
 import PlusIcon from "../components/icons/PlusIcon";
 import CheckIcon from "../components/icons/CheckIcon";
-import Navbar from "../components/Navbar";
 import useIsFavorite from "../hooks/useIsFavorite";
 import useIsWatching from "../hooks/useIsWatching";
 import { useAuth } from "../context/AuthContext";
@@ -26,7 +25,6 @@ const ShowDetailPage = () => {
 
 	return (
 		<>
-			<Navbar />
 			{showDetails ? (
 				<main className="max-w-md px-5 pb-10 pt-5 md:pt-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
 					<div className="max-w-md mx-auto">
