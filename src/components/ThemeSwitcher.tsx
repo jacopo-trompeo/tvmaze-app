@@ -14,6 +14,9 @@ const ThemeSwitcher = ({
 	const [theme, setTheme] = useState(darkTheme);
 
 	useEffect(() => {
+		/* the library i'm using (recommended by daisyui) 
+		requires the following themeChange call. It also saves the 
+		current theme in local storage */
 		themeChange(false);
 		const storedTheme = localStorage.getItem("theme");
 
