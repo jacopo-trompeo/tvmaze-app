@@ -3,7 +3,6 @@ import { onValue, ref } from "firebase/database";
 import { useState, useEffect } from "react";
 
 import ShowCard from "../components/ShowCard";
-import CurrentlyWatching from "../components/CurrentlyWatching";
 import useShows from "../hooks/useShows";
 
 const RankingPage = () => {
@@ -26,8 +25,6 @@ const RankingPage = () => {
 					/>
 				))}
 			</div>
-
-			<CurrentlyWatching />
 		</main>
 	);
 };

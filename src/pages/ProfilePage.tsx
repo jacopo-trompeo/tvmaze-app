@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { database } from "../firebase";
 import ShowsList from "../components/ShowsList";
-import CurrentlyWatching from "../components/CurrentlyWatching";
 import useShows from "../hooks/useShows";
 
 const ProfilePage = () => {
@@ -24,8 +23,6 @@ const ProfilePage = () => {
 				Your favorite shows
 			</h2>
 			<ShowsList shows={favoriteShows} />
-
-			<CurrentlyWatching />
 		</main>
 	);
 };

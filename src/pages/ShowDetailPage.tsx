@@ -16,7 +16,6 @@ import {
 	removeFromWatching,
 } from "../firebase/realtimedb";
 import placeholderImageVertical from "../assets/placeholder-vertical.webp";
-import CurrentlyWatching from "../components/CurrentlyWatching";
 import parse from "html-react-parser";
 
 const ShowDetailPage = () => {
@@ -56,8 +55,6 @@ const ShowDetailPage = () => {
 					))}
 				</div>
 			</div>
-
-			<CurrentlyWatching />
 		</main>
 	);
 };

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { ShowType, getShowsBySearch } from "../api";
 import ShowsList from "../components/ShowsList";
-
 import SearchIcon from "../components/icons/SearchIcon";
 import { useSearchParams } from "react-router-dom";
-import CurrentlyWatching from "../components/CurrentlyWatching";
 
 const SearchPage = () => {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -82,8 +80,6 @@ const SearchPage = () => {
 			) : (
 				<ShowsList shows={shows}></ShowsList>
 			)}
-
-			<CurrentlyWatching />
 		</main>
 	);
 };

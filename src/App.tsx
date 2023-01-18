@@ -10,6 +10,7 @@ import ShowDetailPage from "./pages/ShowDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import RankingPage from "./pages/RankingPage";
 import Navbar from "./components/Navbar";
+import CurrentlyWatching from "./components/CurrentlyWatching";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 
@@ -28,6 +29,7 @@ const renderPage = (
 			<>
 				{!isAuth && <Navbar />}
 				<Page />
+				{!isAuth && <CurrentlyWatching />}
 			</>
 		</Wrapper>
 	);
