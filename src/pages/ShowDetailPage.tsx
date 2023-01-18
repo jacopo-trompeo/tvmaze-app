@@ -22,6 +22,10 @@ const ShowDetailPage = () => {
 	const { id } = useParams<{ id: string }>();
 	const showDetails = useShow(id);
 
+	if (Object.keys(showDetails).length === 0) {
+		return null;
+	}
+
 	return (
 		<main className="max-w-md px-5 pb-10 pt-5 md:pt-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
 			<div className="max-w-md mx-auto">
