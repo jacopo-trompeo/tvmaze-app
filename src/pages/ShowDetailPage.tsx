@@ -24,52 +24,48 @@ const ShowDetailPage = () => {
 	const showDetails = useShowDetails(id);
 
 	return (
-		<>
-			{showDetails ? (
-				<main className="max-w-md px-5 pb-10 pt-5 md:pt-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
-					<div className="max-w-md mx-auto">
-						<img
-							src={showDetails.image || placeholderImageVertical}
-							alt={showDetails.title}
-							className="rounded-lg"
-						/>
-					</div>
-					<div className="flex flex-col justify-center">
-						<ShowDetailActions showId={showDetails.id} />
+		<main className="max-w-md px-5 pb-10 pt-5 md:pt-20 md:px-0 md:container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0">
+			<div className="max-w-md mx-auto">
+				<img
+					src={showDetails.image || placeholderImageVertical}
+					alt={showDetails.title}
+					className="rounded-lg"
+				/>
+			</div>
+			<div className="flex flex-col justify-center">
+				<ShowDetailActions showId={showDetails.id} />
 
-						<h1 className="text-4xl font-semibold">{showDetails.title}</h1>
-						<p className="mt-2 text-sm">
-							{showDetails.startDate || "N/A"} - {showDetails.endDate || "N/A"}
-						</p>
+				<h1 className="text-4xl font-semibold">{showDetails.title}</h1>
+				<p className="mt-2 text-sm">
+					{showDetails.startDate || "N/A"} - {showDetails.endDate || "N/A"}
+				</p>
 
-						<span className="mt-10 text-justify lg:max-w-[60ch]">
-							{showDetails.summary
-								? parse(showDetails.summary)
-								: "No description available"}
+				<span className="mt-10 text-justify lg:max-w-[60ch]">
+					{showDetails.summary
+						? parse(showDetails.summary)
+						: "No description available"}
+				</span>
+
+				<Rating rating={showDetails.avgRating} />
+
+				<div className="mt-5 flex gap-3">
+					{showDetails.genres?.map((genre, i) => (
+						<span className="badge" key={i}>
+							{genre}
 						</span>
+					))}
+				</div>
+			</div>
 
-						<Rating rating={showDetails.avgRating} />
-
-						<div className="mt-5 flex gap-3">
-							{showDetails.genres?.map((genre, i) => (
-								<span className="badge" key={i}>
-									{genre}
-								</span>
-							))}
-						</div>
-					</div>
-
-					<CurrentlyWatching />
-				</main>
-			) : (
-				""
-			)}
-		</>
+			<CurrentlyWatching />
+		</main>
 	);
 };
 
 const useShowDetails = (id?: string) => {
-	const [showDetails, setShowDetails] = useState<ShowDetailType | null>(null);
+	const [showDetails, setShowDetails] = useState<ShowDetailType>(
+		{} as ShowDetailType
+	);
 
 	useEffect(() => {
 		const showId = id && id.match(/^[0-9]+$/) ? parseInt(id) : 0;
