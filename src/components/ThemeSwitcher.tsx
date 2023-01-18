@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 
 interface PropTypes extends React.HTMLAttributes<HTMLLabelElement> {
@@ -11,11 +11,15 @@ const ThemeSwitcher = ({
 	lightTheme = "light",
 	className,
 }: PropTypes) => {
-	// this library (recommended by daisyui) saves the theme also in localStorage
-	const theme = localStorage.getItem("theme") || darkTheme;
+	const [theme, setTheme] = useState(darkTheme);
 
 	useEffect(() => {
 		themeChange(false);
+		const storedTheme = localStorage.getItem("theme");
+
+		if (storedTheme) {
+			setTheme(storedTheme);
+		}
 	}, []);
 
 	return (

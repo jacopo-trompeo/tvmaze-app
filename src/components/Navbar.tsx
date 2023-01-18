@@ -21,12 +21,15 @@ const Navbar = () => {
 
 			<ul className="menu menu-horizontal">
 				<li className="sm:block hidden">
-					<Link className="btn rounded-full mx-5 font-bold" to={"/ranking"}>
+					<Link
+						className="btn btn-ghost rounded-full mx-5 font-bold active:bg-accent"
+						to={"/ranking"}
+					>
 						Rankings
 					</Link>
 				</li>
 				<li className="sm:hidden">
-					<Link className="mx-3 rounded-full" to={"/ranking"}>
+					<Link className="mx-3 rounded-full active:bg-accent" to={"/ranking"}>
 						<StatsIcon />
 					</Link>
 				</li>
