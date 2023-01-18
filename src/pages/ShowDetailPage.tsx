@@ -23,7 +23,7 @@ const ShowDetailPage = () => {
 	const showDetails = useShow(id);
 
 	if (Object.keys(showDetails).length === 0) {
-		return null;
+		return <></>;
 	}
 
 	return (
