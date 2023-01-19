@@ -17,6 +17,7 @@ const ThemeSwitcher = ({
 		/* the library i'm using (recommended by daisyui) 
 		requires the following themeChange call. It also saves the 
 		current theme in local storage */
+		/* doesn't work in development if you use strict mode */
 		themeChange(false);
 		const storedTheme = localStorage.getItem("theme");
 
@@ -27,7 +28,10 @@ const ThemeSwitcher = ({
 
 	return (
 		<label className={`swap swap-rotate ${className}`}>
-			<input type="checkbox" data-toggle-theme={`${darkTheme},${lightTheme}`} />
+			<input
+				type="checkbox"
+				data-toggle-theme={`${darkTheme},${lightTheme}`}
+			/>
 
 			<svg
 				className={`${
